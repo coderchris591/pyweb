@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block head %} 
+    <title>{% block title %}Credit Card Validator{% endblock %}</title>
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <h1>Credit Card Validator</h1>
+    </div>
+    <div class="container">
+        <h2 class="message">Validate any credit card number</h2>
+        <form method="post">
+            <!-- <label for="ccn">Credit Card Number: </label> -->
+            <input type="text" id="ccn" name="ccn"  placeholder="xxxx xxxx xxxx xxxx"> 
+            <input class="link" type="submit" value="Validate">
+        </form>
+
+        {% if card_type == None %}
+            {{ pass }}
+        {% elif card_type == "Invalid" %}
+            Invalid
+        {% else %} 
+            {{ card_type }} is Valid
+        {% endif %}
+        <h3 class="note">This site will not collect or store your credit card number. It simply applies the number to <a href="https://en.wikipedia.org/wiki/Luhn_algorithm" target="_blank">Luhn's Algorithm</a> to determine if it is valid.</h3>
+    </div>    
+{% endblock %}
+
