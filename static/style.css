@@ -55,13 +55,13 @@
 }
 
 /* Hide the hamburger icon on larger screens */
-@media (min-width: 601px) {
+@media (min-width: 1000) {
     .hamburger {
         display: none;
     }
 }
 /* Show the hamburger icon on small screens */
-@media (max-width: 600px) {
+@media (max-width: 1001px) {
     .hamburger {
         display: block;
     }
@@ -146,6 +146,7 @@ body {
 
 /* Main container */
 .container {
+    
 }
 
 .container img {
