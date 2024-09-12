@@ -13,24 +13,23 @@
     font-size: 100px;
     position: absolute;
     top: 15px;
-    right: 15px;
+    left: 15px;
 }
 
 /* Style for the navigation menu */
 .sideNav {
-    background-color: lightblue;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0; /* Move to the left side of the screen */
     height: 100%;
-    width: 250px;
+    width: 40%;
     background-color: white;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
-    transform: translateX(100%);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5); /* Adjust shadow direction */
+    transform: translateX(-100%); /* Adjust transform to hide off-screen to the left */
     transition: transform 0.3s ease-in-out;
     z-index: 1000;
     padding-top: 60px; /* Adjust padding to position the links */
@@ -47,6 +46,8 @@
     margin: 20px 0;
     width: 100%;
     text-align: center;
+    border-bottom: 1px solid #333;
+    height: 15%;
 }
 
 /* Show the navigation menu when active */
@@ -69,7 +70,7 @@
 
 /* Navbar links */
 .sideNav ul li a  {
-    font-size: 20px;
+    font-size: 40px;
     color: #333;
     text-decoration: none;
     margin-right: 10px;
@@ -104,7 +105,7 @@ header a{
 }
 h1{
     font-size: 50px;
-    margin-top: 8%;
+    margin-top: 5%;
     text-align: center;
 
 }
