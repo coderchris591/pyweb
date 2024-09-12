@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block head %} 
+    <title>{% block title %}Hang Man{% endblock %}</title>
+{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>Readability</h1>
+</div>
+<div class="container">
+    <h2>Determine the reading level of any text!</h2>
+
+    <form method="post">
+        <input type="text" name="text" placeholder="Text to evaluate">
+        <input type="submit" value="Evaluate">
+    </form>
+
+    {% if index == -16 %} 
+        {{ pass }}
+    {% elif index > 16 %} 
+        <p>College level</p> 
+    {% elif index < 1 %} 
+        <p>Below grade 1</p>  
+    {% else %}
+    <p>Grade Level: {{ index }}</p>
+    {% endif %}
+</div> 
+{% endblock %}

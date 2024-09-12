@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block head %} 
+    <title>{% block title %}Hang Man{% endblock %}</title>
+{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>Hang Man</h1>
+</div>
+
+<div class="container">
+    <h2 class="message">Guess the Phrase!</h2>
+    <div class="phrase-section">
+        {% if mistakes == 0 %}
+            <img src="{{ url_for('static', filename='img/hangman1.png') }}">
+        {% elif mistakes == 1 %}
+            <img src="{{ url_for('static', filename='img/hangman2.png') }}" >
+        {% elif mistakes == 2 %}
+            <img src="{{ url_for('static', filename='img/hangman3.png') }}" >
+        {% elif mistakes == 3 %}
+            <img src="{{ url_for('static', filename='img/hangman4.png') }}" >
+        {% elif mistakes == 4 %}
+            <img src="{{ url_for('static', filename='img/hangman5.png') }}" >
+        {% elif mistakes == 5 %}
+            <img src="{{ url_for('static', filename='img/hangman6.png') }}" > 
+        {% endif %}
+
+        <h2>
+        {% for letter in output %}
+            {% if letter == ' ' %} 
+                &nbsp;
+            {% else %} 
+                {{ letter }}
+            {% endif %}
+        {% endfor %}
+        </h2>
+    </div> 
+    <div class="alphabet">   
+        <form action="" method="get">
+            <input id="guess1" type="submit" name="guess" value="A" {% if 'a' in guesses %} disabled {% endif %}>
+            <input id="guess2" type="submit" name="guess" value="B" {% if 'b' in guesses %} disabled {% endif %}>
+            <input id="guess3" type="submit" name="guess" value="C" {% if 'c' in guesses %} disabled {% endif %}>
+            <input id="guess4" type="submit" name="guess" value="D" {% if 'd' in guesses %} disabled {% endif %}>
+            <input id="guess5" type="submit" name="guess" value="E" {% if 'e' in guesses %} disabled {% endif %}>
+            <input id="guess6" type="submit" name="guess" value="F" {% if 'f' in guesses %} disabled {% endif %}>
+            <input id="guess7" type="submit" name="guess" value="G" {% if 'g' in guesses %} disabled {% endif %}>
+            <input id="guess8" type="submit" name="guess" value="H" {% if 'h' in guesses %} disabled {% endif %}>
+            <input id="guess9" type="submit" name="guess" value="I" {% if 'i' in guesses %} disabled {% endif %}>
+            <input id="guess10" type="submit" name="guess" value="J" {% if 'j' in guesses %} disabled {% endif %}> 
+            <input id="guess11" type="submit" name="guess" value="K" {% if 'k' in guesses %} disabled {% endif %}>
+            <input id="guess12" type="submit" name="guess" value="L" {% if 'l' in guesses %} disabled {% endif %}> 
+            <input id="guess13" type="submit" name="guess" value="M" {% if 'm' in guesses %} disabled {% endif %}> 
+            <input id="guess14" type="submit" name="guess" value="N" {% if 'n' in guesses %} disabled {% endif %}> 
+            <input id="guess15" type="submit" name="guess" value="O" {% if 'o' in guesses %} disabled {% endif %}> 
+            <input id="guess16" type="submit" name="guess" value="P" {% if 'p' in guesses %} disabled {% endif %}> 
+            <input id="guess17" type="submit" name="guess" value="Q" {% if 'q' in guesses %} disabled {% endif %}> 
+            <input id="guess18" type="submit" name="guess" value="R" {% if 'r' in guesses %} disabled {% endif %}> 
+            <input id="guess19" type="submit" name="guess" value="S" {% if 's' in guesses %} disabled {% endif %}> 
+            <input id="guess20" type="submit" name="guess" value="T" {% if 't' in guesses %} disabled {% endif %}> 
+            <input id="guess21" type="submit" name="guess" value="U" {% if 'u' in guesses %} disabled {% endif %}> 
+            <input id="guess22" type="submit" name="guess" value="V" {% if 'v' in guesses %} disabled {% endif %}> 
+            <input id="guess23" type="submit" name="guess" value="W" {% if 'w' in guesses %} disabled {% endif %}> 
+            <input id="guess24" type="submit" name="guess" value="X" {% if 'x' in guesses %} disabled {% endif %}> 
+            <input id="guess25" type="submit" name="guess" value="Y" {% if 'y' in guesses %} disabled {% endif %}> 
+            <input id="guess26" type="submit" name="guess" value="Z" {% if 'z' in guesses %} disabled {% endif %}> 
+        </form>
+    </div>
+</div>
+{% endblock %}

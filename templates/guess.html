@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+
+{% block head %} 
+    <title>{% block title %}Guess{% endblock %}</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+    <h1>Guess</h1>
+</div>
+
+<div class="container">
+
+    <h2>Guess the Number!</h2>
+    <button type="button" class="btn btn-default" href={{ url_for('get_sessions', app='guess') }}>Reset</button>
+
+    <form action="" method="get">
+        <input name="guess" type="submit" value="1" class="btn" {% if 1 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
+        <input name="guess" type="submit" value="2" {% if 2 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
+        <input name="guess" type="submit" value="3" {% if 3 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
+        <input name="guess" type="submit" value="4" {% if 4 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
+        <input name="guess" type="submit" value="5" {% if 5 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
+        <input name="guess" type="submit" value="6" {% if 6 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
+        <input name="guess" type="submit" value="7" {% if 7 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
+        <input name="guess" type="submit" value="8" {% if 8 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
+        <input name="guess" type="submit" value="9" {% if 9 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
+        <input name="guess" type="submit" value="10" {% if 10 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
+        <br>
+        {% if guess == random_number %}
+            <input id="hover" type="button" value="{{ random_number }}">
+        {% endif %}
+    </form>
+
+    <p>
+        {% if guess == '' %}
+        {% elif guess > random_number %} 
+            It's Smaller than {{ guess }}!
+        {% elif guess == random_number %} 
+            You Got It! 
+        {% else %} 
+            It's Bigger than {{ guess }}!
+        {% endif %}
+    </p>
+
+    {% if guess == random_number %} 
+        <p class="info">Number of guesses: {{ attempts }}</p>
+        <br>
+        <a class="link" href="{{ url_for('get_sessions', app='guess') }}">Play Again</a>
+    {% endif %} 
+</div>
+
+{% endblock %}

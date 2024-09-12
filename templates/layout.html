@@ -1,0 +1,44 @@
+
+
+
+{% block head %} 
+    <title>{% block title %}Layout{% endblock %}</title>
+{% endblock %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<nav class="navbar">
+    <ul>
+        <li style="margin-right: 60%;"><a href="{{ url_for('index') }}"><h3>My Python Tools</h3></a></li>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li>|&nbsp; </li>
+        <li><a href="{{ url_for('contact')}}">Contact</a></li>
+    </ul>
+</nav>
+
+
+
+<body>
+<div class="content">
+{% block content %}
+{% endblock %}
+</div>
+    <article></article>
+
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="#">Github</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">X</a></li>
+                <li><a href="#">LinkedIn</a></li>
+
+            </ul>
+        </nav>
+        <p><small>&copy; Chris Martinez 2020</small></p>
+
+    </footer>
+</body>
+
+
+

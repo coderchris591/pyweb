@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block head %} 
+    <title>{% block title %}World Cup Simulator{% endblock %}</title>
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <h1>World Cup Simulator</h1>
+    </div>
+
+    <div class="container">
+
+        <h2>Simulation</h2>
+        
+        <form method="post">
+            <input type="number" name="simulations" placeholder="Number of simulations" required>
+            <input type="submit" value="Simulate">
+        </form>
+        
+        {% if stats %}
+            <h2>Chances of winning</h2>
+            <table>
+                <tr>
+                    <th>Team</th>
+                    <th>Chance</th>
+                    <th>Wins</th>
+                </tr>
+                {% for dict in stats %}
+                    <tr>
+                        <td>{{ dict.team }}</td>
+                        <td>{{ dict.chance }}%</td>
+                        <td>{{ dict.count }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}
+
