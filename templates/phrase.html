@@ -5,12 +5,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="header">
-    <h1>Hang Man</h1>
-</div>
+    <h2>Hang Man</h2>
 
-<div class="container">
-    <h2 class="message">Guess the Phrase!</h2>
+    <h3>Guess the Phrase!</h3>
     <div class="phrase-section">
         {% if mistakes == 0 %}
             <img src="{{ url_for('static', filename='img/hangman1.png') }}">
@@ -26,7 +23,7 @@
             <img src="{{ url_for('static', filename='img/hangman6.png') }}" > 
         {% endif %}
 
-        <h2>
+        <p>
         {% for letter in output %}
             {% if letter == ' ' %} 
                 &nbsp;
@@ -34,7 +31,7 @@
                 {{ letter }}
             {% endif %}
         {% endfor %}
-        </h2>
+        </p>
     </div> 
     <div class="alphabet">   
         <form action="" method="get">
@@ -66,5 +63,4 @@
             <input id="guess26" type="submit" name="guess" value="Z" {% if 'z' in guesses %} disabled {% endif %}> 
         </form>
     </div>
-</div>
 {% endblock %}

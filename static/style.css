@@ -137,6 +137,8 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: #f0f0f0;
 }
 
@@ -191,7 +193,7 @@ body {
     box-shadow: 0;
 }
 
-
+ 
 /* Guess Form */
 .guess-form {
     width: 100%;
@@ -219,7 +221,69 @@ body {
     color: black;
 }
 
-/* Helpers */
+
+/* Hangman */
+
+/* Phrase Section */
+.phrase-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.phrase-section img {
+    width: 90%;
+    max-width: 300px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(231, 228, 228, 0.837);
+    border-radius: 10px;
+}
+
+.phrase-section p {
+    font-size: 1.8em;
+    color: #555;
+    padding: 2% 10%;
+}
+
+/* Alphabet Buttons */
+.alphabet {
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: center; */
+    margin: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.alphabet input[type="submit"] {
+    margin: 1%;
+    padding: 10px;
+    font-size: 4em;
+    color: #fff;
+    background-color: lightgreen;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.alphabet input[type="submit"]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+
+/* Helpers */ 
 
 .info {
     background-color: lightblue;
@@ -274,6 +338,10 @@ footer a {
 article {
     flex: 1;
 }
+
+
+
+
 
 
 
