@@ -104,7 +104,7 @@ header a{
     color: #333;
 }
 h1{
-    font-size: 50px;
+    font-size: 3em;
     margin-top: 5%;
     text-align: center;
 
@@ -114,11 +114,13 @@ h2{
     margin: 20px;
     text-align: center;
     text-decoration: underline;
+    font-size: 3em;
 }
 
 h3{
     margin: 0;
     text-align: center;
+    font-size: 2em;
 }
 
 h4{
@@ -203,17 +205,30 @@ body {
     margin: 10px;
     padding: 10px;
     width: 50%;
+    height: 100px;
     border-radius: 5px;
     border: 1px solid #333;
-    background: linear-gradient(90deg, blue, darkblue, black, darkblue, blue);
+    background: lightgreen;
     color: white;
     font-size: 20px;
     font-weight: bold;
 }
 
 .guess-form input:disabled {
-    background: linear-gradient(90deg, red, darkred, black, darkred, red);;
+    background: firebrick;
     color: grey;
+}
+
+/* Helpers */
+
+.info {
+    background-color: lightblue;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 2em;
+
 }
 
 
