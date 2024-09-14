@@ -242,30 +242,29 @@ body {
 }
 
 .phrase-section p {
-    font-size: 1.8em;
+    font-size: 3em;
     color: #555;
     padding: 2% 10%;
 }
 
 /* Alphabet Buttons */
 .alphabet {
-    /* display: flex;
-    flex-wrap: wrap;
-    justify-content: center; */
-    margin: 20px;
+    padding: 10px;
+    padding-left: 2.5%;
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     background-color: white;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+    border: none;
 }
 
 .alphabet input[type="submit"] {
+    width: 75px;
     margin: 1%;
     padding: 10px;
     font-size: 4em;
-    color: #fff;
+    color: white;
     background-color: lightgreen;
     border: none;
     border-radius: 8px;

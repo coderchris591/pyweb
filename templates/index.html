@@ -9,12 +9,31 @@
 <h2>All Apps</h2>
 <div class="container">
     <div class="flex-container">
-        <a class="flex-item" href="{{ url_for('get_sessions', app='guess') }}"><img src="{{ url_for('static', filename='img/numbers.jpg') }}">Guess the Number</a>
-        <a class="flex-item" href="{{ url_for('get_sessions', app='phrase') }}"><img src="{{ url_for('static', filename='img/hangman.png') }}">Hang Man</a>
-        <a class="flex-item" href="{{ url_for('credit_card_validator') }}"><img src="{{ url_for('static', filename='img/creditcard.png') }}">Credit Card Validator</a>
-        <a class="flex-item" href="{{ url_for('readability') }}"><img src="{{ url_for('static', filename='img/book1.gif') }}">Readability</a>
-        <a class="flex-item" href="{{ url_for('atm') }}"><img src="{{ url_for('static', filename='img/atm.png')}}">ATM</a>
-        <a class="flex-item" href="{{ url_for('fifa_world_cup') }}"><img src="{{ url_for('static', filename='img/soccer-ball.png')}}">World Cup Simulator</a>
+        <a class="flex-item" href="{{ url_for('get_sessions', app='guess') }}">
+            <img src="{{ url_for('static', filename='img/numbers.jpg') }}">
+            <h1>Guess the Number</h1>
+        </a>
+        <a class="flex-item" href="{{ url_for('get_sessions', app='phrase') }}">
+            <img src="{{ url_for('static', filename='img/hangman.png') }}">
+            <h1>Hang Man</h1>
+        </a>
+        <a class="flex-item" href="{{ url_for('credit_card_validator') }}">
+            <img src="{{ url_for('static', filename='img/creditcard.png') }}">
+            <h1>Credit Card Validator</h1>
+        </a>
+        <a class="flex-item" href="{{ url_for('readability') }}">
+            <img src="{{ url_for('static', filename='img/book1.gif') }}">
+            <h1>Readability</h1>
+        </a>
+        <a class="flex-item" href="{{ url_for('atm') }}">
+            <img src="{{ url_for('static', filename='img/atm.png') }}">
+            <h1>ATM</h1>
+        </a>
+        <a class="flex-item" href="{{ url_for('fifa_world_cup') }}">
+            <img src="{{ url_for('static', filename='img/soccer-ball.png') }}">
+            <h1>World Cup Simulator</h1>
+        </a>
+    </div>
     </div>
 </div>
 {% endblock %}
