@@ -35,10 +35,18 @@
     z-index: 1000;
 }
 
+.sideNav img{
+    width: 100%;
+    margin: 20px 0;
+    /* max-width: 200px; */
+    /* border-radius: 10px; */
+    /* box-shadow: 0 4px 8px rgba(231, 228, 228, 0.837); */
+}
+
 .nav-header {
-   height: 20%;
+   /* height: 20%; */
    width: 100%;
-   background-color: lightblue;
+   background-color: black;
    border-bottom: 1px solid #333;
 }
 
