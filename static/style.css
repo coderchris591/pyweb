@@ -281,6 +281,72 @@ body {
 }
 
 
+/* Credit Card Validator */
+
+.credit-div form {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5em;
+   
+    
+}
+
+
+/* .credit-div input[type="text"] {
+    width: 60%;
+    height: 80px;
+    margin: 20px;
+    border-radius: 10px;
+} */
+
+.credit-div input[type="text"] {
+    width: 60%;
+    padding: 6px 12px;
+    font-size: 1.5em;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    appearance: none;
+    border-radius: 4px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+.credit-div input[type="text"]:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+
+
+
+/* Validate Button */
+.credit-div input[type="submit"] {
+    width: 25%;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    font-size: 1.5em;
+    text-align: center;
+    background-color: lightgreen;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+
 
 /* Helpers */ 
 
@@ -291,6 +357,9 @@ body {
     border-radius: 5px;
     text-align: center;
     font-size: 2em;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+
 
 }
 
@@ -308,6 +377,15 @@ body {
     border-radius: 20px;
 }
 
+.note{
+    border-radius: 10px;
+    text-align: center;
+    background-color: white;
+    padding: 10px;
+    margin-top: 10%;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    
+}
 
 
 
