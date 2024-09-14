@@ -24,7 +24,7 @@
         {% if card_type == None %}
             {{ pass }}
         {% elif card_type == "Invalid" %}
-            Invalid
+            <p class="info">Invalid</p>
         {% else %} 
             {% if card_type == "AMERICAN EXPRESS" %}
                 <img src="{{ url_for('static', filename='img/amex.png') }}" alt="American Express">

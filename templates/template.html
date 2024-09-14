@@ -10,12 +10,14 @@
 
 <body>
     <header>
-        <a href="{{ url_for('index') }}"><h1>My Python Tools</h1></a>
+        <h1><a href="{{ url_for('index') }}">My Python Tools</a></h1>
+        <img src="{{ url_for('static', filename='img/python.webp') }}" alt="Python Logo">
         <div class="hamburger">
             <div onclick="toggleMenu()">&#9776;</div>
         </div>
     </header>
     <nav class="sideNav">
+        <div class="nav-header"><h1>Quick Links</h1></div>
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="{{ url_for('contact')}}">Contact</a></li>

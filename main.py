@@ -127,7 +127,7 @@ def phrase():
 
 @app.route('/credit-card-validator', methods=('POST', 'GET'))
 def credit_card_validator():
-
+    DISCOVER = 16
     MASTERCARD = 16
     AMERICAN_EXPRESS = 15
     VISA = 13, 16
@@ -146,6 +146,8 @@ def credit_card_validator():
 
     if len(credit_card_number) == MASTERCARD and credit_card_number[0] == '5' and (credit_card_number[1] >= '1' or credit_card_number <= '5'):
         card_type = "MASTERCARD"
+    elif len(credit_card_number) == DISCOVER and credit_card_number[0] == '6':
+        card_type = "DISCOVER"
     elif len(credit_card_number) == AMERICAN_EXPRESS and credit_card_number[0] == '3' and (credit_card_number[1] == '4' or credit_card_number[1] == '7'):
         card_type = "AMEX"
     elif len(credit_card_number) == VISA[0] or len(credit_card_number) == VISA[1] and credit_card_number[0] == '4':
