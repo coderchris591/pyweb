@@ -5,15 +5,20 @@
 {% endblock %}
 
 {% block content %}
-    <div class="header">
-        <h1>Credit Card Validator</h1>
-    </div>
-    <div class="container">
-        <h2 class="message">Validate any credit card number</h2>
+    <h2>Credit Card Validator</h2>
+    <div class="credit-div">
+        <h3>Validate any credit card number</h3>
         <form method="post">
             <!-- <label for="ccn">Credit Card Number: </label> -->
-            <input type="text" id="ccn" name="ccn"  placeholder="xxxx xxxx xxxx xxxx"> 
-            <input class="link" type="submit" value="Validate">
+            <input type="text" id="ccn" name="ccn" placeholder="xxxx xxxx xxxx xxxx" autocomplete="off">
+            <script>
+                document.getElementById('ccn').addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+                    let formattedValue = value.match(/.{1,4}/g)?.join(' ') || '';
+                    e.target.value = formattedValue;
+                });
+            </script>
+            <input type="submit" value="Validate">
         </form>
 
         {% if card_type == None %}
@@ -21,9 +26,21 @@
         {% elif card_type == "Invalid" %}
             Invalid
         {% else %} 
-            {{ card_type }} is Valid
+            {% if card_type == "AMERICAN EXPRESS" %}
+                <img src="{{ url_for('static', filename='img/amex.png') }}" alt="American Express">
+                <p class="info">Valid American Express card</p>
+            {% elif card_type == "DISCOVER" %}
+                <img src="{{ url_for('static', filename='img/discover.png') }}" alt="Discover">
+                <p class="info">Valid Discover card</p>
+            {% elif card_type == "MASTERCARD" %}
+                <img src="{{ url_for('static', filename='img/mastercard.png') }}" alt="MasterCard">
+                <p class="info">Valid MasterCard</p>
+            {% elif card_type == "VISA" %}
+                <img src="{{ url_for('static', filename='img/visa.png') }}" alt="Visa">
+                <p class="info">Valid Visa card</p>
+            {% endif %}
         {% endif %}
-        <h3 class="note">This site will not collect or store your credit card number. It simply applies the number to <a href="https://en.wikipedia.org/wiki/Luhn_algorithm" target="_blank">Luhn's Algorithm</a> to determine if it is valid.</h3>
+        <p class="note">This site will not collect or store your credit card number. It simply applies the number to the <a href="https://en.wikipedia.org/wiki/Luhn_algorithm" target="_blank">Luhn Algorithm</a> to determine if the card is valid.</p>
     </div>    
 {% endblock %}
 
