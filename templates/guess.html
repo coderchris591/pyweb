@@ -10,30 +10,43 @@
 <h2>Guess</h2>
 
 
-<h3>
-    {% if guess == '' %}
-        Guess the Number!
-    {% elif guess > random_number %} 
-        It's Smaller than {{ guess }}!
-    {% elif guess == random_number %} 
-        You Got It! 
-    {% else %} 
-        It's Bigger than {{ guess }}!
-    {% endif %}
-</h3>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var guess = "{{ guess }}";
+        var randomNumber = "{{ random_number }}";
+
+        if (guess !== '') {
+            var message = "";
+            if (guess == randomNumber) {
+                message = "You Got It!";
+            } else if (guess > randomNumber) {
+                message = "It's Smaller than " + guess + "!";
+            } else {
+                message = "It's Bigger than " + guess + "!";
+            }
+
+            var alertBox = document.createElement('div');
+            alertBox.className = 'alert-box';
+            alertBox.innerText = message;
+
+            document.body.appendChild(alertBox);
+
+            setTimeout(function() {
+                alertBox.remove();
+            }, 3000);
+        }
+    });
+</script>
 
 <p class="info">Number of guesses: {{ attempts }}</p>
 
 
-{% if guess == random_number %} 
-    <br>
-    <a class="link" href="{{ url_for('get_sessions', app='guess') }}">Play Again</a>
-{% endif %} 
+
 
 <form class="guess-form" action="" method="get">
     {% if guess == random_number %}
         <input id="winning-number" type="button" value="{{ random_number }}">
-    {% endif %}
+    {% else %}
     <br>
     <input name="guess" type="submit" value="1" class="btn" {% if 1 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
     <input name="guess" type="submit" value="2" {% if 2 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
@@ -45,9 +58,12 @@
     <input name="guess" type="submit" value="8" {% if 8 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
     <input name="guess" type="submit" value="9" {% if 9 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
     <input name="guess" type="submit" value="10" {% if 10 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-    
-    
+    {% endif %} 
 </form>
+
+{% if guess == random_number %} 
+    <a id="guess-play-again" class="link" href="{{ url_for('get_sessions', app='guess') }}">Play Again</a>
+{% endif %} 
 
    
 
