@@ -156,11 +156,10 @@ header img {
 h1{
     font-size: 3em;
     text-align: center;
-
 }
 
 h2{
-    margin: 60px;
+    margin: 50px;
     text-align: center;
     font-size: 3em;
 }
@@ -288,14 +287,12 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 20px 0;
 }
 
 .phrase-section img {
     width: 100%;
     max-width: 500px;
     min-width: 250px;
-    margin-bottom: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     /* border: 1px solid #333; */
     border-radius: 20px;
@@ -304,6 +301,7 @@ body {
 .phrase-section p {
     font-size: 5em;
     text-align: center;
+    margin: 20px;
 }
 
 /* Alphabet Buttons */
@@ -361,7 +359,8 @@ body {
     border-radius: 10px;
 } */
 
-.credit-div input[type="text"] {
+.input-text {
+    font-size: 1.5em;
     width: 60%;
     padding: 6px 12px;
     font-size: 1.5em;
@@ -378,7 +377,8 @@ body {
 }
 
 
-.credit-div input[type="text"]:focus{
+.input-text:focus{
+    font-size: 1.5em;
     color: var(--text-color);
     background-color: var(--background-color);
     border-color: var(--button-background-color);
@@ -389,7 +389,7 @@ body {
 
 
 /* Validate Button */
-.credit-div input[type="submit"] {
+.input-submit {
     width: 25%;
     padding: 10px;
     margin: 20px;
@@ -413,13 +413,14 @@ body {
 .info {
     background-color: var(--secondary-color);
     color: var(--button-text-color);
-    padding: 10px;
-    margin: 10px;
+    padding: 20px;
+    margin: 10px auto;
     border-radius: 5px;
     text-align: center;
     font-size: 2em;
     border-radius: 10px;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    width: fit-content;
 
 
 }
