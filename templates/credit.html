@@ -6,11 +6,12 @@
 
 {% block content %}
     <h2>Credit Card Validator</h2>
+    
     <div class="credit-div">
         <p class ="info">Validate any credit card number</p>
         <form method="post">
             <!-- <label for="ccn">Credit Card Number: </label> -->
-            <input type="text" id="ccn" name="ccn" placeholder="xxxx xxxx xxxx xxxx" autocomplete="off">
+            <input class="input-text" type="text" id="ccn" name="ccn" placeholder="xxxx xxxx xxxx xxxx" autocomplete="off">
             <script>
                 document.getElementById('ccn').addEventListener('input', function (e) {
                     let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
@@ -18,7 +19,7 @@
                     e.target.value = formattedValue;
                 });
             </script>
-            <input type="submit" value="Validate">
+            <input class="input-submit" type="submit" value="Validate">
         </form>
 
         {% if card_type == None %}
