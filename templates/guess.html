@@ -15,7 +15,7 @@
         var guess = "{{ guess }}";
         var randomNumber = "{{ random_number }}";
 
-        if (guess !== '') {
+        if (guess !== '' && guess !== 'None') {
             var message = "";
             if (guess == randomNumber) {
                 message = "You Got It!";

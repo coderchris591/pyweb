@@ -41,30 +41,38 @@ def get_sessions(app):
         session['checking'] = '500'
     return resp
 
+
 @app.route('/guess')
 def guess():
 
     # guesses 
-    guesses = session['guesses']
-    attempts = session.get('attempt')
+    guesses = session.get('guesses', [])
+    attempts = session.get('attempt', 0)
     try:
         random_number = int(request.cookies.get('random_number'))
+        if random_number == 10:
+            random_number = 10
+        print("random number: ", random_number)
+        print(type(random_number))
         attempts += 1
-    except TypeError:
-        random_number = '0'
+    except (TypeError, ValueError):
+        random_number = 0
     session['attempt'] = attempts
     guess = request.args.get('guess','')
     try:
         guess = int(guess)
     except ValueError:
-          pass
-    guesses.append(guess)
+          print("Invalid guess: ", guess, ValueError)
+          guess = None
+
+    if guess is not None:
+        guesses.append(guess)
     session['guesses'] = guesses
     print(guesses)
 
-    # print("random number: ", random_number)
-    # print("guess: ", guess)
-    if random_number == '0':
+    print("random number: ", random_number)
+    print("guess: ", guess)
+    if random_number == 0:
         return "Cookies Disabled: Please enable cookies in your browser's settings to play this game."
     if guess == random_number:
         session['attempt'] = -1
