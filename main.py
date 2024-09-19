@@ -34,7 +34,7 @@ def get_sessions(app):
         session['mistakes'] = 0
         phrases = ['Come at me bro','as easy as pie','Epic Sax Guy','Hello world','One of a kind', 'All or Nothing', 'Back to Square One', 'Barking Up The Wrong Tree', 'Beat Around the Bush', 'Better Late Than Never', 'Bite the Bullet', 'Break The Ice', 'Call It A Day', 'Cut To The Chase', 'Cutting Corners', 'Easy As Pie', 'Every Cloud Has A Silver Lining', 'Get Out Of Hand', 'Get Something Out Of Your System', 'Get Your Act Together', 'Give Someone The Cold Shoulder', 'Go Back To The Drawing Board', 'Hang In There', 'Hit The Sack', 'It Takes Two To Tango', 'Jump On The Bandwagon', 'Keep Your Chin Up', 'Kill Two Birds With One Stone', 'Let Someone Off The Hook', 'Make A Long Story Short', 'Miss The Boat', 'No Pain, No Gain', 'On The Ball', 'Pull Yourself Together', 'So Far So Good', 'Speak Of The Devil', 'The Best Of Both Worlds', 'Time Flies When Youre Having Fun', 'Under The Weather', 'You Can Say That Again', 'Your Guess Is As Good As Mine']
         session['phrase'] = random.choice(phrases)
-        session['output'] = ["_" if letter.isalpha() else " " for letter in session['phrase']]
+        session['output'] = ["\u25A1" if letter.isalpha() else " " for letter in session['phrase']]
     elif app == 'atm':
         resp = make_response(redirect(url_for('atm')))
         session['savings'] = '10000'
