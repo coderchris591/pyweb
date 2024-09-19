@@ -12,10 +12,12 @@
     --nav-hover-color: #f95959;
     --button-background-color: #455d7a;
     --button-text-color: #e3e3e3;
-    --button-hover-background-color: #f95959;
+    --button-hover-background-color: #c4d2de;
     --alert-background-color: #f95959;
     --alert-border-color: #455d7a;
     --alert-text-color: #e3e3e3;
+    --disabled-background-color: #928f87;
+    --disabled-text-color: #1d1d1d;
 }
 
 /* Style for the hamburger icon */
@@ -135,7 +137,7 @@ header h1, header img{
     vertical-align: middle;
 }
 header h1 {
-    margin-top: 80px;
+    margin-top: 60px;
     color: var(--header-text-color);
 }
 
@@ -268,8 +270,8 @@ body {
 }
 
 .guess-form input:disabled {
-    background: var(--background-color);
-    color: var(--button-text-color);
+    background: var(--disabled-background-color);
+    color: var(--disabled-text-color);
 }
 
 #guess-play-again {
@@ -332,7 +334,8 @@ body {
 
 
 .alphabet input[type="submit"]:disabled {
-    background-color: var(--button-background-color);
+    background-color: var(--disabled-background-color);
+    color: var(--disabled-text-color);
     cursor: not-allowed;
     box-shadow: none;
 }
