@@ -4,12 +4,27 @@
     <title>{% block title %}Contact{% endblock %}</title>
 {% endblock %}
 
-{% block content %}
-    <div class="header">
-        <h2>Contact</h2>
-    </div>
-    <div class="container">
-        <a href="mailto:chmartinez2014@gmail.com">Email</a>
-        <a target="blank" href="https://www.linkedin.com/in/chris-martinez-17b1ba156/">LinkedIn</a>
-    </div>
+{% block content %}>
+    <h2>Contact</h2>
+        <form  method="post"></form>
+            <input class="input-text" type="text" id="name" name="name" placeholder="Name" required>
+            <input class="input-text" type="email" id="email" name="email" placeholder="Email" required>
+            <textarea class="input-text" id="message" name="message" rows="5" placeholder="Message" required></textarea>
+            <button class="input-submit" type="submit">Submit</button>
+        </form>
+        <div class="sub-message">
+            <hr>
+            <h3> Or reach me at</h3>
+            <hr>
+        </div>
+        
+        <div class="sub-message">
+            <div>
+                <a><img src="{{ url_for('static', filename='img/Linkedin-logo.png') }}" alt="LinkedIn Logo"></a>
+                <a><img src="{{ url_for('static', filename='img/email-icon.png') }}" alt="Email Icon"></a>
+                <a><img src="{{ url_for('static', filename='img/Twitter-icon.png') }}" alt="Twitter Logo"></a>
+                <a><img src="{{ url_for('static', filename='img/Linkedin-logo.png') }}" alt="LinkedIn Logo"></a>
+            </div>
+           
+        </div>
 {% endblock %}
