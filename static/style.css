@@ -10,7 +10,7 @@
     --nav-background-color: #233142;
     --nav-text-color: #e3e3e3;
     --nav-hover-color: #f95959;
-    --button-background-color: #455d7a;
+    --button-background-color: #5977c3;
     --button-text-color: #e3e3e3;
     --button-hover-background-color: #c4d2de;
     --alert-background-color: #f95959;
@@ -258,7 +258,7 @@ body {
     padding: 10px;
     width: 40%;
     height: 110px;
-    border-radius: 5px;
+    border-radius: 15px;
     border: 1px solid var(--button-background-color);
     background: var(--button-background-color);
     color: var(--button-text-color);
@@ -294,7 +294,6 @@ body {
     max-width: 500px;
     min-width: 250px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* border: 1px solid #333; */
     border-radius: 20px;
 }
 
@@ -315,6 +314,8 @@ body {
     background-color: var(--primary-color);
     border: none;
 }
+
+
 
 .alphabet input[type="submit"] {
     width: 75px;
@@ -341,15 +342,7 @@ body {
 
 /* Credit Card Validator */
 
-.credit-div form {
-    margin: 20px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 1.5em;
-   
-    
-}
+
 
 
 /* .credit-div input[type="text"] {
@@ -409,6 +402,13 @@ body {
 
 
 /* Helpers */ 
+
+.normal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 .info {
     background-color: var(--secondary-color);

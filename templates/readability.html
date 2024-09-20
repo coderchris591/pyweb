@@ -6,24 +6,25 @@
 
 {% block content %}
 <div class="header">
-    <h1>Readability</h1>
+    <h2>Readability</h2>
 </div>
 <div class="container">
-    <h2>Determine the reading level of any text!</h2>
+    <p class="info">Determine the reading level of any text!</p>
 
-    <form method="post">
-        <input type="text" name="text" placeholder="Text to evaluate">
-        <input type="submit" value="Evaluate">
+    <form class="normal" method="post">
+        <input class="input-text" type="text" name="text" placeholder="Text to evaluate">
+        <br>
+        <input class="input-submit" type="submit" value="Evaluate">
     </form>
 
     {% if index == -16 %} 
         {{ pass }}
     {% elif index > 16 %} 
-        <p>College level</p> 
+        <p class="info">College level</p> 
     {% elif index < 1 %} 
-        <p>Below grade 1</p>  
+        <p class="info">Below grade 1</p>  
     {% else %}
-    <p>Grade Level: {{ index }}</p>
+    <p class="info">Grade Level: {{ index }}</p>
     {% endif %}
 </div> 
 {% endblock %}
