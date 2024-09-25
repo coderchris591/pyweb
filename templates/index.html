@@ -6,32 +6,32 @@
 
  
 {% block content %}
-<h2>All Apps</h2>
+<h1>All Apps</h1> 
 <div class="container">
     <div class="flex-container">
         <a class="flex-item" href="{{ url_for('get_sessions', app='guess') }}">
             <img src="{{ url_for('static', filename='img/numbers.jpg') }}">
-            <h1>Guess the Number</h1>
+            <h2>Guess the Number</h2>
         </a>
         <a class="flex-item" href="{{ url_for('get_sessions', app='phrase') }}">
             <img src="{{ url_for('static', filename='img/hangman.png') }}">
-            <h1>Hang Man</h1>
+            <h2>Hang Man</h2>
         </a>
         <a class="flex-item" href="{{ url_for('credit_card_validator') }}">
             <img src="{{ url_for('static', filename='img/creditcard.png') }}">
-            <h1>Credit Card Validator</h1>
+            <h2>Credit Card Validator</h2>
         </a>
         <a class="flex-item" href="{{ url_for('readability') }}">
             <img src="{{ url_for('static', filename='img/book1.gif') }}">
-            <h1>Readability</h1>
+            <h2>Readability</h2>
         </a>
         <a class="flex-item" href="{{ url_for('atm') }}">
             <img src="{{ url_for('static', filename='img/atm.png') }}">
-            <h1>ATM</h1>
+            <h2>ATM</h2>
         </a>
         <a class="flex-item" href="{{ url_for('fifa_world_cup') }}">
             <img src="{{ url_for('static', filename='img/soccer-ball.png') }}">
-            <h1>World Cup Simulator</h1>
+            <h2>World Cup Simulator</h2>
         </a>
     </div>
     <footer>
