@@ -155,12 +155,11 @@ header img {
     right: 40px;
 }
 h1{
-    font-size: 3em;
+    font-size: 4em;
     text-align: center;
 }
 
 h2{
-    margin: 50px;
     text-align: center;
     font-size: 3em;
 }
@@ -198,10 +197,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-form{
-    margin: auto;
 }
 
 
@@ -348,24 +343,14 @@ form{
 }
 
 
-/* Credit Card Validator */
-
-
-
-
-/* .credit-div input[type="text"] {
-    width: 60%;
-    height: 80px;
-    margin: 20px;
-    border-radius: 10px;
-} */
+/* Inputs */
 
 .input-text {
-    font-size: 1.5em;
-    width: 60%;
+    width: 70%;
+    height: 80px;
     padding: 6px 12px;
     margin: 5px;
-    font-size: 1.5em;
+    font-size: 2em;
     font-weight: 400;
     line-height: 1.5;
     background-color: var(--background-color);
@@ -375,6 +360,51 @@ form{
     appearance: none;
     border-radius: 4px;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.contact-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.contact-form input[type="text"],.contact-form input[type="email"], .contact-form textarea {
+    font-size: 2.5em;
+    width: 80%;
+    padding: 6px 12px;
+    margin: 5px;
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: var(--background-color);
+    background-clip: padding-box;
+    border: 1px solid var(--button-background-color);
+    border-radius: 10px;
+    appearance: none;
+    border-radius: 4px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.contact-form input {
+    height: 80px;
+}
+
+.contact-submit{
+    width: 50%;
+    height: 80px;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--button-background-color);
+    font-size: 1.5em;
+    text-align: center;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -451,6 +481,7 @@ form{
     border-radius: 10px;
     text-align: center;
     background-color: var(--background-color);
+    border: 1px solid var(--button-background-color);
     padding: 10px;
     margin-top: 10%;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
