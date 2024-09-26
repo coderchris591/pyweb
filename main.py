@@ -3,8 +3,6 @@ import random
 import csv
 from flask import Flask
 from flask_bootstrap import Bootstrap
-from flask_nav import Nav
-from flask_nav.elements import Navbar, View, Subgroup
 from flask_wtf import FlaskForm
 import wtforms
 
