@@ -1,20 +1,30 @@
 {% extends "template.html" %}
 
 {% block head %} 
-    <title>{% block title %}You Lost{% endblock %}</title>
+{{super()}}
+<title>{% block title %}You Lost{% endblock %}</title>
 {% endblock %}
 
 {% block content %}
-
-<div class="header">
-    <h1>You Lost!</h1>
+<div class="jumbotron text-center">
+    <h1 class="display-4">You Lost!</h1>
 </div>
 
 <div class="container">
-    <h3> Whoops, you made too many wrong guesses!</h3>
-    <img src="{{ url_for('static', filename='img/hangman7.png') }}" width="200px">
-    <p>The phrase was "{{ phrase }}".</p>
-    <a href="{{ url_for('get_sessions', app='phrase') }}">Play Again</a>
+    <div class="alert alert-warning" role="alert">
+        <h3>Whoops, you made too many wrong guesses!</h3>
+    </div>
+    <div class="row justify-content-center align-items-center"></div>
+        <div class="col-md-4 text-center">
+            <img src="{{ url_for('static', filename='img/hangman7.png') }}" class="img-fluid" width="200px">
+        </div>
+        <div class="col-md-4 text-center align-self-center">
+            <div class="col-md-6 mt-4 mt-md-0">
+                <h2>Phrase: "{{ phrase }}"</h2>
+                <a href="{{ url_for('get_sessions', app='phrase') }}" class="btn btn-primary mt-3">Play Again</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

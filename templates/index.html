@@ -1,52 +1,120 @@
 {% extends "template.html" %}
 
+{% import "bootstrap/utils.html" as utils %}
+
+
+
+
 {% block head %} 
-    <title>{% block title %}Pyweb{% endblock %}</title>
+{{super()}}
+<title>{% block title %}Home{% endblock %}</title>
 {% endblock %}
+
+
 
  
 {% block content %}
-<h1>All Apps</h1> 
-<div class="container">
-    <div class="flex-container">
-        <a class="flex-item" href="{{ url_for('get_sessions', app='guess') }}">
-            <img src="{{ url_for('static', filename='img/numbers.jpg') }}">
-            <h2>Guess the Number</h2>
-        </a>
-        <a class="flex-item" href="{{ url_for('get_sessions', app='phrase') }}">
-            <img src="{{ url_for('static', filename='img/hangman.png') }}">
-            <h2>Hang Man</h2>
-        </a>
-        <a class="flex-item" href="{{ url_for('credit_card_validator') }}">
-            <img src="{{ url_for('static', filename='img/creditcard.png') }}">
-            <h2>Credit Card Validator</h2>
-        </a>
-        <a class="flex-item" href="{{ url_for('readability') }}">
-            <img src="{{ url_for('static', filename='img/book1.gif') }}">
-            <h2>Readability</h2>
-        </a>
-        <a class="flex-item" href="{{ url_for('atm') }}">
-            <img src="{{ url_for('static', filename='img/atm.png') }}">
-            <h2>ATM</h2>
-        </a>
-        <a class="flex-item" href="{{ url_for('fifa_world_cup') }}">
-            <img src="{{ url_for('static', filename='img/soccer-ball.png') }}">
-            <h2>World Cup Simulator</h2>
-        </a>
-    </div>
-    <footer>
-        <nav>
-            <ul>
-                <li><a href="#">Github</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">X</a></li>
-                <li><a href="#">LinkedIn</a></li>
 
+<div class="container">
+<h1 class="text-center my-4">All Apps</h1>
+<div class="row">
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-8">
+        <div class="row space-16">&nbsp;</div>
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="margin-bottom: 20px;">
+                    <div class="caption text-center">
+                        <div class="position-relative">
+                            <a href="{{ url_for('get_sessions', app='guess') }}">
+                                <img src="{{ url_for('static', filename='img/numbers.jpg') }}" style="width:100%; height:auto; max-width: 150px;" />
+                            </a>
+                        </div>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('get_sessions', app='guess') }}" target="_blank">Guess the Number</a></h4>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="margin-bottom: 20px;">
+                    <div class="caption text-center">
+                        <div class="position-relative">
+                            <a href="{{ url_for('get_sessions', app='phrase') }}">
+                                <img src="{{ url_for('static', filename='img/hangman.png') }}" style="width:100%; height:auto; max-width: 150px;" />
+                            </a>
+                        </div>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('get_sessions', app='phrase') }}" target="_blank">Hang Man</a></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="margin-bottom: 20px;">
+                    <div class="caption text-center">
+                        <div class="position-relative">
+                            <a href="{{ url_for('credit_card_validator') }}">
+                                <img src="{{ url_for('static', filename='img/creditcard.png') }}" style="width:100%; height:auto; max-width: 150px;" />
+                            </a>
+                        </div>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('credit_card_validator') }}" target="_blank">Credit Card Validator</a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row space-16">&nbsp;</div>
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="margin-bottom: 20px;">
+                    <div class="caption text-center">
+                        <div class="position-relative">
+                            <a href="{{ url_for('readability') }}">
+                                <img src="{{ url_for('static', filename='img/book1.gif') }}" style="width:100%; height:auto; max-width: 150px;" />
+                            </a>
+                        </div>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('readability') }}" target="_blank">Readability</a></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="margin-bottom: 20px;">
+                    <div class="caption text-center">
+                        <div class="position-relative">
+                            <a href="{{ url_for('atm') }}">
+                                <img src="{{ url_for('static', filename='img/atm.png') }}" style="width:100%; height:auto; max-width: 150px;" />
+                            </a>
+                        </div>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('atm') }}" target="_blank">ATM</a></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="margin-bottom: 20px;">
+                    <div class="caption text-center">
+                        <div class="position-relative">
+                            <a href="{{ url_for('fifa_world_cup') }}">
+                                <img src="{{ url_for('static', filename='img/soccer-ball.png') }}" style="width:100%; height:auto; max-width: 150px;" />
+                            </a>
+                        </div>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('fifa_world_cup') }}" target="_blank">World Cup Simulator</a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">&nbsp;</div>
+</div>
+
+    <footer class="mt-4">
+        <nav class="text-center">
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Github</a></li>
+                <li class="list-inline-item"><a href="#">Instagram</a></li>
+                <li class="list-inline-item"><a href="#">X</a></li>
+                <li class="list-inline-item"><a href="#">LinkedIn</a></li>
             </ul>
         </nav>
-        <p><small>&copy; Chris Martinez 2024</small></p>
-
+        <p class="text-center"><small>&copy; Chris Martinez 2024</small></p>
     </footer>
+
 </div>
 {% endblock %}
 
