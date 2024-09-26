@@ -4,8 +4,8 @@ import csv
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-import wtforms
-import wtforms.validators
+# import wtforms
+# import wtforms.validators
 
 
 # import google_auth_oauthlib.flow
@@ -23,23 +23,23 @@ def index():
     return render_template('index.html')
 
 
-class ContactForm(FlaskForm):
-    name = wtforms.StringField('Name', [wtforms.validators.DataRequired()])
-    email = wtforms.StringField('Email', [wtforms.validators.Email(), wtforms.validators.DataRequired()])
-    message = wtforms.TextAreaField('Message', [wtforms.validators.DataRequired()])
-    submit = wtforms.SubmitField('Submit')
+# class ContactForm(FlaskForm):
+#     name = wtforms.StringField('Name', [wtforms.validators.DataRequired()])
+#     email = wtforms.StringField('Email', [wtforms.validators.Email(), wtforms.validators.DataRequired()])
+#     message = wtforms.TextAreaField('Message', [wtforms.validators.DataRequired()])
+#     submit = wtforms.SubmitField('Submit')
 
-@app.route('/contact', methods=['GET', 'POST'])
-def contact():
-    form = ContactForm()
-    if form.validate_on_submit():
-        # Process the form data
-        name = form.name.data
-        email = form.email.data
-        message = form.message.data
-        # Here you can add code to save the data or send an email
-        return redirect(url_for('index'))
-    return render_template('contact.html', form=form)
+# @app.route('/contact', methods=['GET', 'POST'])
+# def contact():
+#     form = ContactForm()
+#     if form.validate_on_submit():
+#         # Process the form data
+#         name = form.name.data
+#         email = form.email.data
+#         message = form.message.data
+#         # Here you can add code to save the data or send an email
+#         return redirect(url_for('index'))
+#     return render_template('contact.html', form=form)
 
 @app.route('/about')
 def about():
