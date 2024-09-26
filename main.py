@@ -3,6 +3,11 @@ import random
 import csv
 from flask import Flask
 from flask_bootstrap import Bootstrap
+from flask_nav import Nav
+from flask_nav.elements import Navbar, View, Subgroup
+from flask_wtf import FlaskForm
+import wtforms
+
 
 # import google_auth_oauthlib.flow
 # import googleapiclient.discovery
@@ -13,13 +18,35 @@ app = Flask(__name__)
 app.secret_key='dev'
 Bootstrap(app)
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/contact')
+
+class ContactForm(FlaskForm):
+    name = wtforms.StringField('Name', [wtforms.validators.DataRequired()])
+    email = wtforms.StringField('Email', [wtforms.validators.Email(), wtforms.validators.DataRequired()])
+    message = wtforms.TextAreaField('Message', [wtforms.validators.DataRequired()])
+    submit = wtforms.SubmitField('Submit')
+
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    return render_template('contact.html')
+    form = ContactForm()
+    if form.validate_on_submit():
+        # Process the form data
+        name = form.name.data
+        email = form.email.data
+        message = form.message.data
+        # Here you can add code to save the data or send an email
+        return redirect(url_for('index'))
+    return render_template('contact.html', form=form)
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
     
 @app.route('/get_sessions/<app>')
 def get_sessions(app):
@@ -367,5 +394,7 @@ def fifa_world_cup():
 #     return render_template('youtube.html')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
+
+
