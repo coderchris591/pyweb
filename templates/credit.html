@@ -1,17 +1,19 @@
 {% extends "template.html" %}
 
 {% block head %} 
-    <title>{% block title %}Credit Card Validator{% endblock %}</title>
+{{super()}}
+<title>{% block title %}Credit Card Validator{% endblock %}</title>
 {% endblock %}
 
 {% block content %}
-    <h2>Credit Card Validator</h2>
+    <h2 class="text-center">Credit Card Validator</h2>
     
-    <div class="credit-div">
-        <p class ="info">Validate any credit card number</p>
+    <div class="credit-div container mt-4">
+        <p class="info text-center">Validate any credit card number</p>
         <form class="normal" method="post">
-            <!-- <label for="ccn">Credit Card Number: </label> -->
-            <input class="input-text" type="text" id="ccn" name="ccn" placeholder="xxxx xxxx xxxx xxxx" autocomplete="off">
+            <div class="form-group">
+                <input class="form-control" type="text" id="ccn" name="ccn" placeholder="xxxx xxxx xxxx xxxx" autocomplete="off">
+            </div>
             <script>
                 document.getElementById('ccn').addEventListener('input', function (e) {
                     let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
@@ -19,29 +21,33 @@
                     e.target.value = formattedValue;
                 });
             </script>
-            <input class="input-submit" type="submit" value="Validate">
+            <div class="form-group text-center">
+                <input class="btn btn-primary" type="submit" value="Validate">
+            </div>
         </form>
 
         {% if card_type == None %}
             {{ pass }}
         {% elif card_type == "Invalid" %}
-            <p class="info">Invalid</p>
+            <p class="info text-center text-danger">Invalid</p>
         {% else %} 
-            {% if card_type == "AMERICAN EXPRESS" %}
-                <img src="{{ url_for('static', filename='img/amex.png') }}" alt="American Express">
-                <p class="info">Valid American Express card</p>
-            {% elif card_type == "DISCOVER" %}
-                <img src="{{ url_for('static', filename='img/discover.png') }}" alt="Discover">
-                <p class="info">Valid Discover card</p>
-            {% elif card_type == "MASTERCARD" %}
-                <img src="{{ url_for('static', filename='img/mastercard.png') }}" alt="MasterCard">
-                <p class="info">Valid MasterCard</p>
-            {% elif card_type == "VISA" %}
-                <img src="{{ url_for('static', filename='img/visa.png') }}" alt="Visa">
-                <p class="info">Valid Visa card</p>
-            {% endif %}
+            <div class="text-center">
+                {% if card_type == "AMERICAN EXPRESS" %}
+                    <img src="{{ url_for('static', filename='img/amex.png') }}" alt="American Express" class="img-fluid">
+                    <p class="info">Valid American Express card</p>
+                {% elif card_type == "DISCOVER" %}
+                    <img src="{{ url_for('static', filename='img/discover.png') }}" alt="Discover" class="img-fluid">
+                    <p class="info">Valid Discover card</p>
+                {% elif card_type == "MASTERCARD" %}
+                    <img src="{{ url_for('static', filename='img/mastercard.png') }}" alt="MasterCard" class="img-fluid">
+                    <p class="info">Valid MasterCard</p>
+                {% elif card_type == "VISA" %}
+                    <img src="{{ url_for('static', filename='img/visa.png') }}" alt="Visa" class="img-fluid">
+                    <p class="info">Valid Visa card</p>
+                {% endif %}
+            </div>
         {% endif %}
-        <p class="note">This site will not collect or store your credit card number. It simply applies the number to the <a href="https://en.wikipedia.org/wiki/Luhn_algorithm" target="_blank">Luhn Algorithm</a> to determine if the card is valid.</p>
-    </div>    
+        <p class="note text-center mt-3">This site will not collect or store your credit card number. It simply applies the number to the <a href="https://en.wikipedia.org/wiki/Luhn_algorithm" target="_blank">Luhn Algorithm</a> to determine if the card is valid.</p>
+    </div>
 {% endblock %}
 

@@ -1,28 +1,33 @@
 {% extends "template.html" %}
 
 {% block head %} 
-    <title>{% block title %}Hang Man{% endblock %}</title>
+{{super()}}
+<title>{% block title %}Hang Man{% endblock %}</title>
 {% endblock %}
 
 {% block content %}
-<h2>Readability</h2>
-<div>
-    <p class="info">Determine the reading level of any text!</p>
+<h2 class="mt-4 text-center">Readability</h2>
+<div class="container mt-3">
+    <p class="text-center">Determine the reading level of any text!</p>
 
-    <form class="normal" method="post">
-        <input class="input-text" type="text" name="text" placeholder="Text to evaluate">
+    <form method="post">
+        <div class="form-group">
+            <input class="form-control" type="text" name="text" placeholder="Text to evaluate">
+        </div>
         <br>
-        <input class="input-submit" type="submit" value="Evaluate">
+        <div class="text-center">
+            <input class="btn btn-primary" type="submit" value="Evaluate">
+        </div>
     </form>
 
     {% if index == -16 %} 
         {{ pass }}
     {% elif index > 16 %} 
-        <p class="info">College level</p> 
+        <p class="alert alert-success mt-2">College level</p> 
     {% elif index < 1 %} 
-        <p class="info">Below grade 1</p>  
+        <p class="alert alert-success mt-2">Below grade 1</p>  
     {% else %}
-    <p class="info">Grade Level: {{ index }}</p>
+        <p class="alert alert-success mt-2">Grade Level: {{ index }}</p>
     {% endif %}
-</div> 
+</div>
 {% endblock %}

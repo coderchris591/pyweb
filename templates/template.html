@@ -1,45 +1,59 @@
 
-{% block head %} 
-    <title>{% block title %}Layout{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{%- extends "bootstrap/base.html" %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+ 
+{% block title %}bootstrap{% endblock %}
+
+{% import "bootstrap/fixes.html" as fixes %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{%- endblock %}
+
+
+{% block navbar %}
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">PyWeb</a>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Apps<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{url_for('get_sessions', app='guess')}}">Guess</a></li>
+                            <li><a href="{{url_for('get_sessions', app='phrase')}}">Hangman</a></li>
+                            <li><a href="{{url_for('credit_card_validator')}}">Credit Card Validator</a></li>
+                            <li><a href="{{url_for('readability')}}">Readability</a></li>
+                            <li><a href="{{url_for('atm')}}">ATM</a></li>
+                            <li><a href="{{url_for('fifa_world_cup')}}">World Cup Simulator</a></li>
+                        </ul>
+                    </li>
+                </ul>
+          </div>
+    </div>
+</div>
 {% endblock %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<script src="{{ url_for('static', filename='myapp.js') }}"></script>
-
-<body>
-    <header>
-        <h1><a href="{{ url_for('index') }}">My Python Tools</a></h1>
-        <img src="{{ url_for('static', filename='img/python.webp') }}" alt="Python Logo">
-        <div class="hamburger">
-            <div onclick="toggleMenu()">&#9776;</div>
-        </div>
-    </header>
-    <nav class="sideNav">
-        <div class="nav-header">
-            <!-- <h1>Quick Links</h1> -->
-            <img src="{{ url_for('static', filename='img/python.gif') }}" alt="Python gif">
-        </div>
-        <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('contact')}}">Contact</a></li>
-            <li><a href="{{ url_for('get_sessions', app='guess') }}">Guess</a></li>
-            <li><a href="{{ url_for('get_sessions', app='phrase') }}">Hangman</a></li>
-            <li><a href="{{ url_for('credit_card_validator') }}">Credit Card Validator</a></li>
-            <li><a href="{{ url_for('readability') }}">Readability</a></li>
-            <li><a href="{{ url_for('atm') }}">ATM</a></li>
-            <li><a href="{{ url_for('fifa_world_cup') }}">World Cup Simulator</a></li>
-        </ul>
-    </nav>
-    
-<div class="content">
 {% block content %}
 {% endblock %}
-</div>
-    <article></article>
 
-    
-</body>
+   
 
 
 
