@@ -1,6 +1,3 @@
 Flask==3.0.0
 Flask-Bootstrap==3.3.7.1
-flask-appconfig>=0.10
-flask-nav
-flask-debug
 flask-wtf
