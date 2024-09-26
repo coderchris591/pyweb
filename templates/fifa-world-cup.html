@@ -1,38 +1,45 @@
 {% extends "template.html" %}
 
 {% block head %} 
-    <title>{% block title %}World Cup Simulator{% endblock %}</title>
+{{super()}}
+<title>{% block title %}World Cup Simulator{% endblock %}</title>
 {% endblock %}
 
 {% block content %}
-    <div class="header">
+    <div class="header text-center my-4">
         <h1>World Cup Simulator</h1>
     </div>
 
     <div class="container">
 
-        <h2>Simulation</h2>
+        <h2 class="my-4">Simulation</h2>
         
-        <form method="post">
-            <input type="number" name="simulations" placeholder="Number of simulations" required>
-            <input type="submit" value="Simulate">
+        <form method="post" class="mb-4">
+            <div class="form-group">
+                <input type="number" name="simulations" class="form-control" placeholder="Number of simulations" required>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Simulate</button>
         </form>
         
         {% if stats %}
-            <h2>Chances of winning</h2>
-            <table>
-                <tr>
-                    <th>Team</th>
-                    <th>Chance</th>
-                    <th>Wins</th>
-                </tr>
-                {% for dict in stats %}
+            <h2 class="my-4">Chances of winning</h2>
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>{{ dict.team }}</td>
-                        <td>{{ dict.chance }}%</td>
-                        <td>{{ dict.count }}</td>
+                        <th>Team</th>
+                        <th>Chance</th>
+                        <th>Wins</th>
                     </tr>
-                {% endfor %}
+                </thead>
+                <tbody>
+                    {% for dict in stats %}
+                        <tr>
+                            <td>{{ dict.team }}</td>
+                            <td>{{ dict.chance }}%</td>
+                            <td>{{ dict.count }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         {% endif %}
     </div>

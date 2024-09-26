@@ -2,13 +2,13 @@
 
 
 {% block head %} 
-    <title>{% block title %}Guess{% endblock %}</title>
+{{super()}}
+<title>{% block title %}Guess{% endblock %}</title>
 {% endblock %}
 
 {% block content %}
 
-<h2>Guess</h2>
-
+<h2 class="text-center">Guess</h2>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -26,7 +26,7 @@
             }
 
             var alertBox = document.createElement('div');
-            alertBox.className = 'alert-box';
+            alertBox.className = 'alert alert-info text-center';
             alertBox.innerText = message;
 
             document.body.appendChild(alertBox);
@@ -38,33 +38,35 @@
     });
 </script>
 
-<p class="info">Number of guesses: {{ attempts }}</p>
+<p class="text-center">Number of guesses: {{ attempts }}</p>
 
-
-
-
-<form class="guess-form" action="" method="get">
+<form action="" method="get" class="text-center">
     {% if guess == random_number %}
-        <input id="winning-number" type="button" value="{{ random_number }}">
+        <input type="button" class="btn btn-success" value="{{ random_number }}">
     {% else %}
     <br>
-    <input name="guess" type="submit" value="1" class="btn" {% if 1 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-    <input name="guess" type="submit" value="2" {% if 2 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-    <input name="guess" type="submit" value="3" {% if 3 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-    <input name="guess" type="submit" value="4" {% if 4 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-    <input name="guess" type="submit" value="5" {% if 5 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-    <input name="guess" type="submit" value="6" {% if 6 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-    <input name="guess" type="submit" value="7" {% if 7 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-    <input name="guess" type="submit" value="8" {% if 8 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-    <input name="guess" type="submit" value="9" {% if 9 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-    <input name="guess" type="submit" value="10" {% if 10 in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-    {% endif %} 
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-center">
+        {% for i in range(1, 11) %}
+            <input name="guess" type="submit" class="btn btn-primary m-1" value="{{ i }}" {% if i in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
+        {% endfor %}
+    </div>
+    {% endif %}
 </form>
 
-{% if guess == random_number %} 
-    <a id="guess-play-again" class="link" href="{{ url_for('get_sessions', app='guess') }}">Play Again</a>
-{% endif %} 
+<style>
+    @media (max-width: 1000px) {
+        .d-flex.flex-wrap.flex-md-nowrap {
+            flex-direction: column;
+        }
+    }
+</style>
 
-   
+{% if guess == random_number %}
+    <div class="pt-5 text-center">
+        <form action="{{ url_for('get_sessions', app='guess') }}" method="get">
+            <button type="submit" class="btn btn-success">Play Again</button>
+        </form>
+    </div>
+{% endif %}
 
 {% endblock %}

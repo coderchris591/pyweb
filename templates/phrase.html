@@ -1,66 +1,48 @@
 {% extends "template.html" %}
 
 {% block head %} 
-    <title>{% block title %}Hang Man{% endblock %}</title>
+{{super()}}
+<title>{% block title %}Hang Man{% endblock %}</title>
 {% endblock %}
 
 {% block content %}
-    <h2>Hang Man</h2> 
+    <h2 class="text-center">Hang Man</h2> 
 
-    <p class="info">Guess the Phrase!</p>
-    <div class="phrase-section">
+    <p class="info text-center">Guess the Phrase!</p>
+    <div class="phrase-section text-center">
         {% if mistakes == 0 %}
-            <img src="{{ url_for('static', filename='img/hangman1.png') }}">
+            <img src="{{ url_for('static', filename='img/hangman1.png') }}" class="img-fluid">
         {% elif mistakes == 1 %}
-            <img src="{{ url_for('static', filename='img/hangman2.png') }}" >
+            <img src="{{ url_for('static', filename='img/hangman2.png') }}" class="img-fluid">
         {% elif mistakes == 2 %}
-            <img src="{{ url_for('static', filename='img/hangman3.png') }}" >
+            <img src="{{ url_for('static', filename='img/hangman3.png') }}" class="img-fluid">
         {% elif mistakes == 3 %}
-            <img src="{{ url_for('static', filename='img/hangman4.png') }}" >
+            <img src="{{ url_for('static', filename='img/hangman4.png') }}" class="img-fluid">
         {% elif mistakes == 4 %}
-            <img src="{{ url_for('static', filename='img/hangman5.png') }}" >
+            <img src="{{ url_for('static', filename='img/hangman5.png') }}" class="img-fluid">
         {% elif mistakes == 5 %}
-            <img src="{{ url_for('static', filename='img/hangman6.png') }}" > 
+            <img src="{{ url_for('static', filename='img/hangman6.png') }}" class="img-fluid"> 
         {% endif %}
-
-        <p>
+        <h2 class="mt-3 display-2">
         {% for letter in output %}
             {% if letter == ' ' %} 
-                -
+            <span class="mx-4 display-1">-</span>
             {% else %} 
-                {{ letter }}
+            <span class="mx-4 display-1">{{ letter }}</span>
             {% endif %}
         {% endfor %}
-        </p>
+        </h2>
+        <h3 class="mt-3 display-4 text-danger">
+            Mistakes: {{ mistakes }} / 6
+        </h3>
     </div> 
-    <div class="alphabet">   
-        <form action="" method="get">
-            <input id="guess1" type="submit" name="guess" value="A" {% if 'a' in guesses %} disabled {% endif %}>
-            <input id="guess2" type="submit" name="guess" value="B" {% if 'b' in guesses %} disabled {% endif %}>
-            <input id="guess3" type="submit" name="guess" value="C" {% if 'c' in guesses %} disabled {% endif %}>
-            <input id="guess4" type="submit" name="guess" value="D" {% if 'd' in guesses %} disabled {% endif %}>
-            <input id="guess5" type="submit" name="guess" value="E" {% if 'e' in guesses %} disabled {% endif %}>
-            <input id="guess6" type="submit" name="guess" value="F" {% if 'f' in guesses %} disabled {% endif %}>
-            <input id="guess7" type="submit" name="guess" value="G" {% if 'g' in guesses %} disabled {% endif %}>
-            <input id="guess8" type="submit" name="guess" value="H" {% if 'h' in guesses %} disabled {% endif %}>
-            <input id="guess9" type="submit" name="guess" value="I" {% if 'i' in guesses %} disabled {% endif %}>
-            <input id="guess10" type="submit" name="guess" value="J" {% if 'j' in guesses %} disabled {% endif %}> 
-            <input id="guess11" type="submit" name="guess" value="K" {% if 'k' in guesses %} disabled {% endif %}>
-            <input id="guess12" type="submit" name="guess" value="L" {% if 'l' in guesses %} disabled {% endif %}> 
-            <input id="guess13" type="submit" name="guess" value="M" {% if 'm' in guesses %} disabled {% endif %}> 
-            <input id="guess14" type="submit" name="guess" value="N" {% if 'n' in guesses %} disabled {% endif %}> 
-            <input id="guess15" type="submit" name="guess" value="O" {% if 'o' in guesses %} disabled {% endif %}> 
-            <input id="guess16" type="submit" name="guess" value="P" {% if 'p' in guesses %} disabled {% endif %}> 
-            <input id="guess17" type="submit" name="guess" value="Q" {% if 'q' in guesses %} disabled {% endif %}> 
-            <input id="guess18" type="submit" name="guess" value="R" {% if 'r' in guesses %} disabled {% endif %}> 
-            <input id="guess19" type="submit" name="guess" value="S" {% if 's' in guesses %} disabled {% endif %}> 
-            <input id="guess20" type="submit" name="guess" value="T" {% if 't' in guesses %} disabled {% endif %}> 
-            <input id="guess21" type="submit" name="guess" value="U" {% if 'u' in guesses %} disabled {% endif %}> 
-            <input id="guess22" type="submit" name="guess" value="V" {% if 'v' in guesses %} disabled {% endif %}> 
-            <input id="guess23" type="submit" name="guess" value="W" {% if 'w' in guesses %} disabled {% endif %}> 
-            <input id="guess24" type="submit" name="guess" value="X" {% if 'x' in guesses %} disabled {% endif %}> 
-            <input id="guess25" type="submit" name="guess" value="Y" {% if 'y' in guesses %} disabled {% endif %}> 
-            <input id="guess26" type="submit" name="guess" value="Z" {% if 'z' in guesses %} disabled {% endif %}> 
+    <div class="alphabet text-center mt-4">   
+        <form action="" method="get" class="d-inline-block">
+            <div class="d-flex flex-wrap justify-content-center">
+                {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
+                    <input id="guess{{ loop.index }}" type="submit" name="guess" value="{{ letter }}" class="btn btn-primary m-1" {% if letter.lower() in guesses %} disabled {% endif %}>
+                {% endfor %}
+            </div>
         </form>
     </div>
 {% endblock %}
