@@ -4,11 +4,11 @@ import csv
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-# import smtplib
-# from email.mime.text import MIMEText
-# import os
-# import wtforms
-# import wtforms.validators
+import smtplib
+from email.mime.text import MIMEText
+import os
+import wtforms
+import wtforms.validators
 
 
 # import google_auth_oauthlib.flow
@@ -50,26 +50,27 @@ def contact():
         name = request.form.get('name')
         email = request.form.get('email')
         message = request.form.get('message')
+
         # Email configuration
-        sender_email = "your_email@example.com"
+        sender_email = email
         receiver_email = "chmartinez2014@gmail.com"
         subject = "New Contact Form Submission"
         body = f"Name: {name}\nEmail: {email}\nMessage: {message}"
 
-        # # Create the email message
-        # msg = MIMEText(body)
-        # msg["Subject"] = subject
-        # msg["From"] = sender_email
-        # msg["To"] = receiver_email
+        # Create the email message
+        msg = MIMEText(body)
+        msg["Subject"] = subject
+        msg["From"] = sender_email
+        msg["To"] = receiver_email
 
-        # # Send the email
-        # try:
-        #     with smtplib.SMTP("smtp.gmail.com", 587) as server:
-        #         server.starttls()
-        #         server.login(sender_email, os.getenv("EMAIL_PASSWORD"))
-        #         server.sendmail(sender_email, receiver_email, msg.as_string())
-        # except Exception as e:
-        #     print(f"Error sending email: {e}")
+        # Send the email
+        try:
+            with smtplib.SMTP("smtp.gmail.com", 587) as server:
+                server.starttls()
+                server.login(sender_email, os.getenv("EMAIL_PASSWORD"))
+                server.sendmail(sender_email, receiver_email, msg.as_string())
+        except Exception as e:
+            print(f"Error sending email: {e}")
         return redirect(url_for('index'))
     return render_template('contact.html')
 
