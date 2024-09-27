@@ -41,6 +41,15 @@ def index():
 #         return redirect(url_for('index'))
 #     return render_template('contact.html', form=form)
 
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+        return redirect(url_for('index'))
+    return render_template('contact.html')
+
 @app.route('/about')
 def about():
     return render_template('about.html')
