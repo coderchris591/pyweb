@@ -4,6 +4,9 @@ import csv
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
+# import smtplib
+# from email.mime.text import MIMEText
+# import os
 # import wtforms
 # import wtforms.validators
 
@@ -47,6 +50,26 @@ def contact():
         name = request.form.get('name')
         email = request.form.get('email')
         message = request.form.get('message')
+        # Email configuration
+        sender_email = "your_email@example.com"
+        receiver_email = "chmartinez2014@gmail.com"
+        subject = "New Contact Form Submission"
+        body = f"Name: {name}\nEmail: {email}\nMessage: {message}"
+
+        # # Create the email message
+        # msg = MIMEText(body)
+        # msg["Subject"] = subject
+        # msg["From"] = sender_email
+        # msg["To"] = receiver_email
+
+        # # Send the email
+        # try:
+        #     with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        #         server.starttls()
+        #         server.login(sender_email, os.getenv("EMAIL_PASSWORD"))
+        #         server.sendmail(sender_email, receiver_email, msg.as_string())
+        # except Exception as e:
+        #     print(f"Error sending email: {e}")
         return redirect(url_for('index'))
     return render_template('contact.html')
 
@@ -72,7 +95,7 @@ def get_sessions(app):
         session['output'] = ["\u25A1" if letter.isalpha() else " " for letter in session['phrase']]
     elif app == 'atm':
         resp = make_response(redirect(url_for('atm')))
-        session['savings'] = '10000'
+        session['saving'] = '10000'
         session['checking'] = '500'
     return resp
 
@@ -265,6 +288,7 @@ def readability():
 def atm():
     if request.method == 'POST':
         return render_template('atm.html')
+
         # amount = request.form.get('amount')
         # action = request.form.get('action')
         # if action == 'deposit':
@@ -286,11 +310,11 @@ def atm():
         # return render_template('atm.html', savings=session['savings'], checking=session['checking'])
 
     elif request.method == 'GET':
-        savings = session.get('savings')
-        checkings = session.get('checkings')
+        saving = session.get('saving')
+        checking = session.get('checking')
 
-        print(savings, checkings)
-        return render_template('atm.html', savings=savings, checkings=checkings)
+        print(saving, checking)
+        return render_template('atm.html', saving=saving, checking=checking)
 
 
 @app.route('/fifa-world-cup', methods=('POST', 'GET'))

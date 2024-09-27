@@ -1,86 +1,63 @@
 {% extends "template.html" %}
 
 {% block head %} 
+    {{super()}}
     <title>{% block title %}ATM{% endblock %}</title>
 {% endblock %}
 
-{% block script %}
-<script>
-    addEventListener("click", highlight());
-    function highlight(id1, id2, id3){
-        btn = document.getElementById(id1);
-        section = document.getElementById(id1 + 'section')
-        section2 = document.getElementById(id2 + 'section')
-        section3 = document.getElementById(id3 + 'section')
-        section.style.display = "block";
-        section2.style.display = "none";
-        section3.style.display = "none";
-        btn.style.backgroundColor = "#87b7e0";
-        btn.style.color = 'white'
-        btn.style.border = "1px solid transparent"
-        btn.style.boxShadow = "5px 5px 10px 2px grey"; 
-        btn.style.transition = "color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out";
-        btn2 = document.getElementById(id2);
-        btn3 = document.getElementById(id3);
-        btn2.style.backgroundColor = "";
-        btn2.style.color = ''
-        btn2.style.border = ""
-        btn2.style.boxShadow = ""; 
-        btn2.style.transition = "";
-        btn3.style.backgroundColor = "";
-        btn3.style.color = ''
-        btn3.style.border = ""
-        btn3.style.boxShadow = ""; 
-        btn3.style.transition = "";
-    }
-</script>
-{% endblock %}
-
-
 {% block content %}
-    <div class="header">
-        <h1>ATM</h1>
-    </div>
-    <div class="container">
-        <h2>Virtual ATM</h2>
-        <div>
-            <button id="withdrawl" class="btn" onclick="highlight(this.id, 'deposit', 'balance')">Withdrawl</button>
-            <button id="deposit" class="btn" onclick="highlight(this.id, 'withdrawl', 'balance')">Deposit</button>
-            <button id="balance" class="btn" onclick="highlight(this.id, 'withdrawl', 'deposit')">Check Balance</button>
+    <div class="container text-center">
+        <h2 class="text-center">Virtual ATM</h2>
+        <div class="text-center"></div>
+            <button id="withdrawl" class="btn btn-primary" onclick="showSection('withdrawlSection')">Withdrawl</button>
+            <button id="deposit" class="btn btn-primary" onclick="showSection('depositSection')">Deposit</button>
+            <button id="balance" class="btn btn-primary" onclick="showSection('balanceSection')">Check Balance</button>
         </div>    
-            <div class="section" id="withdrawlsection">
-                <form method="post">
-                    <h3 class="info">Withdrawl Amount</h3>
-                    <input id="dollar" type="numerical">
-                    <br>
-                    <input id="checking" name="account" type="radio" value="checking">
-                    <label for="checking">Checking</label>
-                    <input id="savings" name="account" type="radio" value="savings">
-                    <label for="savings">Savings</label>
-                    <br>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
-            <div class="section" id="depositsection">
-                <form method="post">
-                    <h3 class="info">Deposit Amount</h3>
-                    <input id="dollar" type="numerical">
-                    <br>
-                    <input id="checking" name="account" type="radio" value="checking">
-                    <label for="checking">Checking</label>
-                    <input id="savings" name="account" type="radio" value="savings">
-                    <label for="savings">Savings</label>
-                    <br>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
-            <div class="section" id="balancesection">
-                <form method="post">
-                    <h3 class="info">Account Balance</h3>
-                    <p>Savings: {{ session['savings'] }}</p>
-                    <p>Checkings: {{ checkings }}</p>
-                </form>
-            </div>
+        <div id="withdrawlSection" class="section text-center" style="display:none;">
+            <form method="post">
+                <h3>Withdrawl Amount</h3>
+                <input type="number">
+                <br>
+                <input name="account" type="radio" value="checking">
+                <label>Checking</label>
+                <input name="account" type="radio" value="savings">
+                <label>Savings</label>
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div id="depositSection" class="section text-center" style="display:none;">
+            <form method="post">
+                <h3>Deposit Amount</h3>
+                <input type="number">
+                <br>
+                <input name="account" type="radio" value="checking">
+                <label>Checking</label>
+                <input name="account" type="radio" value="savings">
+                <label>Savings</label>
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div id="balanceSection" class="section text-center" style="display:none;">
+            <form method="post">
+                <h3>Account Balance</h3>
+                <p>Savings: {{ saving }}</p>
+                <p>Checkings: {{ checking }}</p>
+            </form>
+        </div>
     </div>    
 {% endblock %}
 
+{% block scripts %}
+<script>
+function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(function(section) {
+        section.style.display = 'none';
+    });
+    // Show the selected section
+    document.getElementById(sectionId).style.display = 'block';
+}
+</script>
+{% endblock %}
