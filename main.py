@@ -4,73 +4,21 @@ import csv
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-import smtplib
 from email.mime.text import MIMEText
-import os
-import wtforms
 import wtforms.validators
-from flask_mail import Mail, Message
-
-
-# import google_auth_oauthlib.flow
-# import googleapiclient.discovery
-# import googleapiclient.errors
 
 
 app = Flask(__name__)
 app.secret_key='dev'
 Bootstrap(app)
    
-# app.config.update(dict(
-#     DEBUG = True,
-#     MAIL_SERVER = 'smtp.gmail.com',
-#     MAIL_PORT = 587,
-#     MAIL_USE_TLS = True,
-#     MAIL_USE_SSL = False,
-#     MAIL_USERNAME = 'chmartinez2014@gmail.com',
-#     MAIL_PASSWORD = os.getenv('EMAIL_PASSWORD'),
-# ))
-
-# mail = Mail(app) # instantiate the mail class 
-
-
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
-# class ContactForm(FlaskForm):
-#     name = wtforms.StringField('Name', [wtforms.validators.DataRequired()])
-#     email = wtforms.StringField('Email', [wtforms.validators.Email(), wtforms.validators.DataRequired()])
-#     message = wtforms.TextAreaField('Message', [wtforms.validators.DataRequired()])
-#     submit = wtforms.SubmitField('Submit')
-
-# @app.route('/contact', methods=['GET', 'POST'])
-# def contact():
-#     form = ContactForm()
-#     if form.validate_on_submit():
-#         # Process the form data
-#         name = form.name.data
-#         email = form.email.data
-#         message = form.message.data
-#         # Here you can add code to save the data or send an email
-#         return redirect(url_for('index'))
-#     return render_template('contact.html', form=form)
-
 @app.route('/contact')
 def contact():
-    # if request.method == 'POST':
-    #     name = request.form.get('name')
-    #     email = request.form.get('email')
-    #     message = request.form.get('message')
-    #     msg = Message('New Message', sender=email, recipients=[app.config['MAIL_USERNAME']])
-    #     msg.body = f"FROM: {name}\nMESSAGE: {message}"
-    #     mail.send(msg)
-
-        
-    #     return redirect(url_for('index'))
     return render_template('contact.html')
 
 @app.route('/about')
