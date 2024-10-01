@@ -9,6 +9,7 @@ from email.mime.text import MIMEText
 import os
 import wtforms
 import wtforms.validators
+from flask_mail import Mail, Message
 
 
 # import google_auth_oauthlib.flow
@@ -19,6 +20,20 @@ import wtforms.validators
 app = Flask(__name__)
 app.secret_key='dev'
 Bootstrap(app)
+   
+# app.config.update(dict(
+#     DEBUG = True,
+#     MAIL_SERVER = 'smtp.gmail.com',
+#     MAIL_PORT = 587,
+#     MAIL_USE_TLS = True,
+#     MAIL_USE_SSL = False,
+#     MAIL_USERNAME = 'chmartinez2014@gmail.com',
+#     MAIL_PASSWORD = os.getenv('EMAIL_PASSWORD'),
+# ))
+
+# mail = Mail(app) # instantiate the mail class 
+
+
 
 
 @app.route('/')
@@ -44,34 +59,18 @@ def index():
 #         return redirect(url_for('index'))
 #     return render_template('contact.html', form=form)
 
-@app.route('/contact', methods=['GET', 'POST'])
+@app.route('/contact')
 def contact():
-    if request.method == 'POST':
-        name = request.form.get('name')
-        email = request.form.get('email')
-        message = request.form.get('message')
+    # if request.method == 'POST':
+    #     name = request.form.get('name')
+    #     email = request.form.get('email')
+    #     message = request.form.get('message')
+    #     msg = Message('New Message', sender=email, recipients=[app.config['MAIL_USERNAME']])
+    #     msg.body = f"FROM: {name}\nMESSAGE: {message}"
+    #     mail.send(msg)
 
-        # Email configuration
-        sender_email = email
-        receiver_email = "chmartinez2014@gmail.com"
-        subject = "New Contact Form Submission"
-        body = f"Name: {name}\nEmail: {email}\nMessage: {message}"
-
-        # Create the email message
-        msg = MIMEText(body)
-        msg["Subject"] = subject
-        msg["From"] = sender_email
-        msg["To"] = receiver_email
-
-        # Send the email
-        try:
-            with smtplib.SMTP("smtp.gmail.com", 587) as server:
-                server.starttls()
-                server.login(sender_email, os.getenv("EMAIL_PASSWORD"))
-                server.sendmail(sender_email, receiver_email, msg.as_string())
-        except Exception as e:
-            print(f"Error sending email: {e}")
-        return redirect(url_for('index'))
+        
+    #     return redirect(url_for('index'))
     return render_template('contact.html')
 
 @app.route('/about')

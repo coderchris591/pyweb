@@ -6,15 +6,17 @@
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron text-center">
-    <h1 class="display-4">About Me</h1>
-</div>
+<h1 class="text-center">About Me</h1>
 <div class="container mt-4">
+    <hr>
+
     <div class="row">
         <div class="col-md-4">
-            <img src="{{ url_for('static', filename='img/self_portrait.jpg') }}" class="img-fluid rounded-circle" alt="Profile Picture" style="border-radius: 10%;">
+            <div class="text-center">
+                <img class="rounded-image" src="{{ url_for('static', filename='img/self_portrait.jpg') }}" class="img-fluid" alt="Profile Picture">
+            </div>
             <h3 class="mt-4">Skills</h3>
-            <ul class="list-group">
+            <ul class="list-group"></ul>
                 <li class="list-group-item">Python & Flask</li>
                 <li class="list-group-item">Java</li>
                 <li class="list-group-item">Flutter & Dart</li>
@@ -31,17 +33,30 @@
             <div class="row mt-4">
                 <div class="col-md-6">
                     <h3>Education</h3>
-                    <p>I am currently attending Lewwis University in Romeoville, IL, where I am pursuing a degree in Computer Science. 
-                        I previously attended Joliet Junior College (JJC), where I studied Computer programming.</p>
+                    <p>I am currently attending Lewis University in Romeoville, IL, where I am pursuing a degree in Computer Science. 
+                        I previously attended Joliet Junior College (JJC), where I studied Computer programming and earned an A.S. and A.A.</p>
                         During my time at JJC, I was involved in various coding challenges and completed many projects, where I developed 
                         my passion for software development.</p>
+                    <h3>Experience</h3>
+                    <p>I have worked on various projects, including web applications, mobile apps, and desktop applications. I have experience 
+                        working with databases, APIs, and version control systems. I am always looking for new opportunities to grow and expand my 
+                        skill set.</p>
                 </div>
                 <div class="col-md-6">
+                    <h3>Links</h3>
+                    <div class="list-group">
+                        <a class="list-group-item" href="https://touchingheartssoftware.com/projects.html" target="_blank">Roomie - An Easy-to-Use Meeting Room Scheduler</a>
+                        <a class="list-group-item" href="https://www.instagram.com/thehiverapp/" target="_blank">Hiver - A Social Media App to bring back genuine human connection</a>
+                        <a class="list-group-item" href="https://jjcwolves.com/sports/mens-soccer/roster/2021" target="_blank">JJC Wolves Men's Soccer 2021</a>
+                        <a class="list-group-item" href="https://github.com/coderchris591" target="_blank">Github</a>
+                    </div>
                     <h3>Contact</h3>
-                    <p>If you'd like to get in touch, feel free to <a href="url_for('contact')">contact me</a>.</p>
+                    <p>If you'd like to get in touch, feel free to <a href="{{ url_for('contact') }}">contact me</a>.</p>
                 </div>
             </div>
         </div>
     </div>
+    <div style="height: 50px;"><hr></div>
+
 </div>
 {% endblock %}
