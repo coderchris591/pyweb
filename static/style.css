@@ -2,3 +2,34 @@
     margin: 10px;
 }
 
+h1 {
+    margin-bottom: 2.5%;
+}
+
+footer {
+    margin-top: 5%;
+}
+
+body{
+    background-color: #e9ebee;
+}
+
+.navbar {
+    background-color: #fff;
+}
+
+.rounded-image {
+    border-radius: 50%;
+}
+
+.thumbnail {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+hr {
+    background-color: lightgrey;
+    height: 2px;
+}
