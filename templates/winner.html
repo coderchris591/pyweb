@@ -7,22 +7,12 @@
 
 {% block content %}
 <div class="jumbotron text-center">
-    <h1 class="display-4">You Won!</h1>
+    <h1>You Won!</h1>
 </div>
-<div class="container mt-4">
+<div class="text-center container">
     <div class="alert alert-success" role="alert">
-        <h3 class="alert-heading">Congrats! You guessed correctly!</h3>
+        <h3 class="alert-heading">Congrats! You correctly guessed <br> "{{ phrase }}"</h3>
     </div>
-    <div class="row mt-4">
-        <div class="col-md-6 text-center">
-            <img src="{{ url_for('static', filename='img/victory.png') }}" class="img-fluid" width="300px">
-        </div>
-        <div class="col-md-6 mt-4 mt-md-0">
-            <h2>Phrase: "{{ phrase }}"</h2>
-        </div>
-    </div>
-    <div class="mt-4 text-center">
-        <a href="{{ url_for('get_sessions', app='phrase') }}" class="btn btn-primary">Play Again</a>
-    </div>
+    <a href="{{ url_for('get_sessions', app='phrase') }}" class="btn btn-primary">Play Again</a>
 </div>
 {% endblock %}
