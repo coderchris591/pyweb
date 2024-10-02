@@ -6,10 +6,9 @@
 {% endblock %}
 
 {% block content %}
-    <h2 class="text-center">Hang Man</h2> 
+    <h2 class="text-center">Guess the Phrase</h2> 
 
-    <p class="info text-center">Guess the Phrase!</p>
-    <div class="phrase-section text-center">
+    <div class="text-center">
         {% if mistakes == 0 %}
             <img src="{{ url_for('static', filename='img/hangman1.png') }}" class="img-fluid">
         {% elif mistakes == 1 %}

@@ -2,7 +2,7 @@
 
 {% block head %} 
 {{super()}}
-<title>{% block title %}World Cup Simulator{% endblock %}</title>
+<title>{% block title %}2018 World Cup Simulator{% endblock %}</title>
 {% endblock %}
 
 {% block content %}
@@ -10,9 +10,9 @@
         <h1>World Cup Simulator</h1>
     </div>
 
-    <div class="container">
+    <div class="text-center container">
 
-        <h2 class="my-4">Simulation</h2>
+        <h2 class="my-4">Simulate the 2018 World Cup </h2>
         
         <form method="post" class="mb-4">
             <div class="form-group">
@@ -20,7 +20,8 @@
             </div>
             <button type="submit" class="btn btn-primary mt-2">Simulate</button>
         </form>
-        
+    </div>
+    <div class="container">
         {% if stats %}
             <h2 class="my-4">Chances of winning</h2>
             <table class="table table-striped">

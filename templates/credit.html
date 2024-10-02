@@ -29,25 +29,25 @@
         {% if card_type == None %}
             {{ pass }}
         {% elif card_type == "Invalid" %}
-            <p class="info text-center text-danger">Invalid</p>
+            <p class="text-center alert alert-danger">Invalid</p>
         {% else %} 
-            <div class="text-center">
+            <div class="credit text-center">
                 {% if card_type == "AMERICAN EXPRESS" %}
-                    <img src="{{ url_for('static', filename='img/amex.png') }}" alt="American Express" class="img-fluid">
-                    <p class="info">Valid American Express card</p>
+                    <img  src="{{ url_for('static', filename='img/amex.png') }}" alt="American Express" class="img-fluid">
+                    <p class="alert alert-success ">Valid American Express card</p>
                 {% elif card_type == "DISCOVER" %}
                     <img src="{{ url_for('static', filename='img/discover.png') }}" alt="Discover" class="img-fluid">
-                    <p class="info">Valid Discover card</p>
+                    <p class="alert alert-success">Valid Discover card</p>
                 {% elif card_type == "MASTERCARD" %}
                     <img src="{{ url_for('static', filename='img/mastercard.png') }}" alt="MasterCard" class="img-fluid">
-                    <p class="info">Valid MasterCard</p>
+                    <p class="alert alert-success">Valid MasterCard</p>
                 {% elif card_type == "VISA" %}
                     <img src="{{ url_for('static', filename='img/visa.png') }}" alt="Visa" class="img-fluid">
-                    <p class="info">Valid Visa card</p>
+                    <p class="alert alert-success">Valid Visa card</p>
                 {% endif %}
             </div>
         {% endif %}
-        <p class="note text-center mt-3">This site will not collect or store your credit card number. It simply applies the number to the <a href="https://en.wikipedia.org/wiki/Luhn_algorithm" target="_blank">Luhn Algorithm</a> to determine if the card is valid.</p>
+        <p class="alert alert-info text-center">This site will not collect or store your credit card number. It simply applies the number to the <a href="https://en.wikipedia.org/wiki/Luhn_algorithm" target="_blank">Luhn Algorithm</a> to determine if the card is valid.</p>
     </div>
 {% endblock %}
 

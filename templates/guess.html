@@ -7,66 +7,65 @@
 {% endblock %}
 
 {% block content %}
+<div class="container">
 
-<h2 class="text-center">Guess</h2>
+    <h2 class="text-center">Guess</h2>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var guess = "{{ guess }}";
-        var randomNumber = "{{ random_number }}";
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var guess = "{{ guess }}";
+            var randomNumber = "{{ random_number }}";
 
-        if (guess !== '' && guess !== 'None') {
-            var message = "";
-            if (guess == randomNumber) {
-                message = "You Got It!";
-            } else if (guess > randomNumber) {
-                message = "It's Smaller than " + guess + "!";
-            } else {
-                message = "It's Bigger than " + guess + "!";
+            if (guess !== '' && guess !== 'None') {
+                var message = "";
+                if (guess == randomNumber) {
+                    message = "You Got It!";
+                } else if (guess > randomNumber) {
+                    message = "It's Smaller than " + guess + "!";
+                } else {
+                    message = "It's Bigger than " + guess + "!";
+                }
+
+                var alertBox = document.createElement('div');
+                alertBox.className = 'alert alert-info text-center';
+                alertBox.innerText = message;
+                alertBox.style.width = '60%';
+                alertBox.style.margin = '10px auto';
+
+
+                document.body.appendChild(alertBox);
+
+                setTimeout(function() {
+                    alertBox.remove();
+                }, 3000);
             }
+        });
+    </script>
 
-            var alertBox = document.createElement('div');
-            alertBox.className = 'alert alert-info text-center';
-            alertBox.innerText = message;
+    <p class="text-center">Number of guesses: {{ attempts }}</p>
 
-            document.body.appendChild(alertBox);
+    <form action="" method="get" class="text-center">
+        {% if guess == random_number %}
+            <input type="button" class="btn btn-success" value="{{ random_number }}">
+        {% else %}
+        <br>
+        <div>
+            {% for i in range(1, 11) %}
+                <input name="guess" type="submit" class="btn btn-primary m-1" value="{{ i }}" {% if i in guesses %} disabled {% elif guess == random_number %} disabled {% endif %} style="width: 5%;">
+            {% endfor %}
+        </div>
+        {% endif %}
+    </form>
 
-            setTimeout(function() {
-                alertBox.remove();
-            }, 3000);
-        }
-    });
-</script>
 
-<p class="text-center">Number of guesses: {{ attempts }}</p>
-
-<form action="" method="get" class="text-center">
     {% if guess == random_number %}
-        <input type="button" class="btn btn-success" value="{{ random_number }}">
-    {% else %}
-    <br>
-    <div class="d-flex flex-wrap flex-md-nowrap justify-content-center">
-        {% for i in range(1, 11) %}
-            <input name="guess" type="submit" class="btn btn-primary m-1" value="{{ i }}" {% if i in guesses %} disabled {% elif guess == random_number %} disabled {% endif %}>
-        {% endfor %}
-    </div>
+        <div class="pt-5 text-center">
+            <form action="{{ url_for('get_sessions', app='guess') }}" method="get">
+                <button type="submit" class="btn btn-success">Play Again</button>
+            </form>
+        </div>
     {% endif %}
-</form>
 
-<style>
-    @media (max-width: 1000px) {
-        .d-flex.flex-wrap.flex-md-nowrap {
-            flex-direction: column;
-        }
-    }
-</style>
-
-{% if guess == random_number %}
-    <div class="pt-5 text-center">
-        <form action="{{ url_for('get_sessions', app='guess') }}" method="get">
-            <button type="submit" class="btn btn-success">Play Again</button>
-        </form>
-    </div>
-{% endif %}
+</div>
 
 {% endblock %}
