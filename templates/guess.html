@@ -44,16 +44,14 @@
 
     <p class="text-center">Number of guesses: {{ attempts }}</p>
 
-    <form action="" method="get" class="text-center">
+    <form action="" method="get" class="numbers text-center">
         {% if guess == random_number %}
             <input type="button" class="btn btn-success" value="{{ random_number }}">
         {% else %}
-        <br>
-        <div>
+            <br>
             {% for i in range(1, 11) %}
-                <input name="guess" type="submit" class="btn btn-primary m-1" value="{{ i }}" {% if i in guesses %} disabled {% elif guess == random_number %} disabled {% endif %} style="width: 5%;">
+                <input name="guess" type="submit" class="btn btn-primary" value="{{ i }}" {% if i in guesses %} disabled {% elif guess == random_number %} disabled {% endif %} style="width: 5%; min-width: 40px; margin: 3px;">
             {% endfor %}
-        </div>
         {% endif %}
     </form>
 

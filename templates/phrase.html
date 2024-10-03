@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+    <div class="container">
     <h2 class="text-center">Guess the Phrase</h2> 
 
     <div class="text-center">
@@ -31,17 +32,16 @@
             {% endif %}
         {% endfor %}
         </h2>
-        <h3 class="mt-3 display-4 text-danger">
-            Mistakes: {{ mistakes }} / 6
-        </h3>
+
     </div> 
     <div class="alphabet text-center mt-4">   
-        <form action="" method="get" class="d-inline-block">
+        <form action="" method="get" style="max-width: 600px; margin: auto;">
             <div class="d-flex flex-wrap justify-content-center">
                 {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
-                    <input id="guess{{ loop.index }}" type="submit" name="guess" value="{{ letter }}" class="btn btn-primary m-1" {% if letter.lower() in guesses %} disabled {% endif %}>
+                    <input id="guess{{ loop.index }}" type="submit" name="guess" value="{{ letter }}" class="btn btn-primary" style="margin: 2px;" {% if letter.lower() in guesses %} disabled {% endif %}>
                 {% endfor %}
             </div>
         </form>
     </div>
+</div>
 {% endblock %}
