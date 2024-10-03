@@ -6,24 +6,25 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="text-center">About Me</h1>
 <div class="container mt-4">
+    <h1 class="text-center">About Me</h1>
+
     <hr>
 
     <div class="row">
         <div class="col-md-4">
             <div class="text-center">
-                <img class="rounded-image" src="{{ url_for('static', filename='img/self_portrait.jpg') }}" class="img-fluid" alt="Profile Picture">
+                <img class="rounded-image" src="{{ url_for('static', filename='img/self_portrait.jpg') }}" class="img-fluid" alt="Profile Picture" width="200">
             </div>
             <h3 class="mt-4">Skills</h3>
             <ul class="list-group"></ul>
-                <li class="list-group-item">Python & Flask</li>
-                <li class="list-group-item">Java</li>
-                <li class="list-group-item">Flutter & Dart</li>
-                <li class="list-group-item">SQL & NoSQL Databases</li>
-                <li class="list-group-item">Git & Github</li>
-                <li class="list-group-item">HTML & CSS</li>
-                <li class="list-group-item">JavaScript</li>
+                <li class="list-group-item"><img src="{{url_for('static', filename='img/python.webp')}}" style="height: 20px"> Python & Flask</li>
+                <li class="list-group-item"><img src="{{url_for('static', filename='img/java.jpg')}}" style="height: 20px"> Java</li>
+                <li class="list-group-item"><img src="{{url_for('static', filename='img/c++.jpg')}}" style="height: 20px"> C++</li>
+                <li class="list-group-item"><img src="{{url_for('static', filename='img/flutter.webp')}}" style="height: 20px"> Flutter & Dart</li>
+                <li class="list-group-item"><img src="{{url_for('static', filename='img/sql.png')}}" style="height: 20px"> SQL & NoSQL Databases</li>
+                <li class="list-group-item"><img src="{{url_for('static', filename='img/git.webp')}}" style="height: 20px"> Git & Github</li>
+                <li class="list-group-item"><img src="{{url_for('static', filename='img/html_css_js.png')}}" style="height: 20px"> HTML, CSS, & JavaScript</li>
             </ul>
         </div>
         <div class="col-md-8">
@@ -49,6 +50,7 @@
                         <a class="list-group-item" href="https://www.instagram.com/thehiverapp/" target="_blank">Hiver - A Social Media App to bring back genuine human connection</a>
                         <a class="list-group-item" href="https://jjcwolves.com/sports/mens-soccer/roster/2021" target="_blank">JJC Wolves Men's Soccer 2021</a>
                         <a class="list-group-item" href="https://github.com/coderchris591" target="_blank">Github</a>
+                        <a class="list-group-item" href="https://docs.google.com/document/d/11klbWJYqxB2sSoP6DtdeJJK4XYHCPb7_/edit?usp=sharing&ouid=107516376264093216417&rtpof=true&sd=true" target="_blank">Resume</a>
                     </div>
                     <h3>Contact</h3>
                     <p>If you'd like to get in touch, feel free to <a href="{{ url_for('contact') }}">contact me</a>.</p>
