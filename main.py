@@ -1,3 +1,4 @@
+import os
 from flask import Flask, make_response, redirect, session, url_for, render_template, request
 import random
 import csv
@@ -265,6 +266,7 @@ def atm():
         return render_template('atm.html', saving=saving, checking=checking)
 
 
+
 @app.route('/fifa-world-cup', methods=('POST', 'GET'))
 def fifa_world_cup():
 
@@ -276,11 +278,14 @@ def fifa_world_cup():
         def main():
 
             teams = []
-            # TODO: Read teams into memory from file
-            with open("2018m.csv", 'r') as file:
-                reader = csv.DictReader(file)
-                for row in reader:
-                    teams.append({'team': row['team'], 'rating': int(row['rating'])})
+            # Read teams into memory from file
+            try:
+                with open(os.path.join(os.getcwd(), "2018m.csv"), 'r') as file:
+                    reader = csv.DictReader(file)
+                    for row in reader:
+                        teams.append({'team': row['team'], 'rating': int(row['rating'])})
+            except FileNotFoundError:
+                return "Could not find 2018m.csv"
 
 
             counts = {}
