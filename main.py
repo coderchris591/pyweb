@@ -350,6 +350,106 @@ def fifa_world_cup():
 
 
 
+
+
+
+@app.route('/graph-theory', methods=('POST', 'GET'))
+def graph_theory():
+
+    def get_cartesian_product(A, B):
+            cartesian_product = []
+            for a in A:
+                for b in B:
+                    if a.isnumeric() and b.isnumeric() and (a, b) not in cartesian_product:
+                        cartesian_product.append((int(a), int(b)))
+            if len(cartesian_product) == 0:
+                print("\nEmpty Set: \u2205")
+                return
+            print("\nCartesian Product: { ", end="")
+            for i in range(len(cartesian_product)):
+                if i == len(cartesian_product) - 1:
+                    print(cartesian_product[i], end="")
+                else:
+                    print(cartesian_product[i], end=", ")
+            print(" }")
+            return cartesian_product
+    
+
+    def get_union(A, B):
+            union = A + B
+            print(union)
+            for i in range(len(union)):
+                union[i] = int(union[i])
+            union = list(set(union))
+            if len(union) == 0:
+                # print("\nEmpty Set: \u2205")
+                return ['\u2205']
+            union.sort()
+            
+            # print("\nUnion: { ", end="")
+            # for i in range(len(union)):
+            #     if i == len(union) - 1:
+            #         print(union[i], end="")
+            #     else:
+            #         print(union[i], end=", ")
+            # print(" }")
+            return union
+    
+
+    def get_intersection(A,B):
+            interesction = []
+            for a in A:
+                print(a)
+                if a in B and a not in interesction and a.isnumeric():
+                    interesction.append(a)
+            for b in B:
+                if b in B and b not in interesction and b.isnumeric():
+                    interesction.append(b)
+                if len(interesction) == 0:
+                    print("\nEmpty Set: \u2205")
+                    return
+            for i in range(len(interesction)):
+                interesction[i] = int(interesction[i])
+            interesction.sort()
+            print("\nIntersection: { ", end="")
+            for i in range(len(interesction)):
+                if i == len(interesction) - 1:
+                    print(interesction[i], end="")
+                else:
+                    print(i, end=", ")
+            print("}")
+            return interesction
+
+    
+    if request.method == 'POST':
+        # get user input 
+        A = request.form.get('setA')
+        B = request.form.get('setB')
+        choice = request.form.get('section')
+        A = A.replace("{", "").replace("}", "").replace(" ", "").split(",")
+        B = B.replace("{", "").replace("}", "").replace(" ", "").split(",")
+        if choice == 'cartesianProduct':
+            type = 'Cartesian Product'
+            result = get_cartesian_product(A, B)
+        elif choice == 'union':
+            type = 'Union'
+            result = get_union(A, B)
+        elif choice == 'intersection':
+            type = 'Intersection'
+            result = get_intersection(A, B)
+        return render_template('graph-theory.html', result=result, type=type, setA = A, setB = B)
+    else:
+        return render_template('graph-theory.html')
+    
+
+
+@app.route('/blog', methods=('POST', 'GET'))
+def blog():
+    return render_template('blog.html')
+
+
+
+
 # @app.route('/youtube')
 # def youtube():
 

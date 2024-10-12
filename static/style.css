@@ -83,3 +83,23 @@ hr {
         justify-content: space-between;
     }
 }
+
+.blog {
+    max-width: 900px; 
+    margin: 5px auto 40px;
+    font-size: 1.2em;
+    line-height: 1.4em;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.blog a {
+    width: 50%;
+}
+
+.author {
+    font-size: 0.8em;
+    color: grey;
+    background-color: #fff;
+}
