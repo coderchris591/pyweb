@@ -2,25 +2,71 @@
 
 {% import "bootstrap/utils.html" as utils %}
 
-
-
-
 {% block head %} 
 {{super()}}
 <title>{% block title %}Home{% endblock %}</title>
 {% endblock %}
 
-
-
- 
 {% block content %}
 
 <div class="container">
-<h1 class="text-center">All Apps</h1>
+<h1 class="text-center"></h1>
+
+ <!-- Row 0  -->
 <div class="row">
     <div class="col-md-2">&nbsp;</div>
     <div class="col-md-8">
         <div class="row space-16">&nbsp;</div>
+        <div class="row">
+
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="margin-bottom: 20px;">
+                    <div class="caption text-center">
+                        <div class="position-relative">
+                            <a href="{{ url_for('about') }}">
+                                <img  src="{{ url_for('static', filename='img/self_portrait.jpg') }}" style="width:80%; height:auto; max-width: 150px;" />
+                            </a>
+                        </div>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('get_sessions', app='guess') }}">About</a></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="margin-bottom: 20px;">
+                    <div class="caption text-center">
+                        <div class="position-relative">
+                            <a href="{{ url_for('contact') }}">
+                                <img src="{{ url_for('static', filename='img/contact.webp') }}" style="width:100%; height:auto; max-width: 150px;" />
+                            </a>
+                        </div>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('contact') }}">Contact</a></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="margin-bottom: 20px;">
+                    <div class="caption text-center">
+                        <div class="position-relative">
+                            <a href="{{ url_for('blog') }}">
+                                <img src="{{ url_for('static', filename='img/blog.png') }}" style="width:100%; height:auto; max-width: 150px;" />
+                            </a>
+                        </div>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('blog') }}">Blog</a></h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Row 1 -->
+<div class="row">
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-8">
         <div class="row">
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail" style="margin-bottom: 20px;">
@@ -60,7 +106,9 @@
                 </div>
             </div>
         </div>
-        <div class="row space-16">&nbsp;</div>
+
+
+        <!-- Row 2 -->
         <div class="row">
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail" style="margin-bottom: 20px;">
@@ -100,23 +148,23 @@
             </div>
         </div>    
     </div>
-    <div class="col-md-2">&nbsp;</div>
+    <!-- <div class="col-md-2">&nbsp;</div> -->
 </div>
-<h1 class="text-center">Links</h1>
+
+<!-- Row 3 -->
 <div class="row">
     <div class="col-md-2">&nbsp;</div>
     <div class="col-md-8">
-        <div class="row space-16">&nbsp;</div>
         <div class="row">
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail" style="margin-bottom: 20px;">
                     <div class="caption text-center">
                         <div class="position-relative">
-                            <a href="{{ url_for('about') }}">
-                                <img  src="{{ url_for('static', filename='img/self_portrait.jpg') }}" style="width:80%; height:auto; max-width: 150px;" />
+                            <a href="{{ url_for('graph_theory') }}">
+                                <img  src="{{ url_for('static', filename='img/graph_theory.png') }}" style="width:80%; height:auto; max-width: 150px;" />
                             </a>
                         </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('get_sessions', app='guess') }}" target="_blank">About</a></h4>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('graph_theory') }}">Graph Theory</a></h4>
 
                     </div>
                 </div>
@@ -125,15 +173,34 @@
                 <div class="thumbnail" style="margin-bottom: 20px;">
                     <div class="caption text-center">
                         <div class="position-relative">
-                            <a href="{{ url_for('contact') }}">
-                                <img src="{{ url_for('static', filename='img/contact.webp') }}" style="width:100%; height:auto; max-width: 150px;" />
+                            <a href="{{ url_for('index') }}">
+                                <img src="{{ url_for('static', filename='img/under-construction.webp') }}" style="width:100%; height:auto; max-width: 150px;" />
                             </a>
                         </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('contact') }}" target="_blank">Contact</a></h4>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('index') }}">Coming Soon</a></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="margin-bottom: 20px;">
+                    <div class="caption text-center">
+                        <div class="position-relative">
+                            <a href="{{ url_for('index') }}">
+                                <img src="{{ url_for('static', filename='img/under-construction.webp') }}" style="width:100%; height:auto; max-width: 150px;" />
+                            </a>
+                        </div>
+                        <h4 id="thumbnail-label"><a href="{{ url_for('index') }}">Coming Soon</a></h4>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+
+
+
 
 
     <footer>
