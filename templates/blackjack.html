@@ -1,0 +1,59 @@
+{% extends "template.html" %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='cards.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
+{% block head %} 
+{{super()}}
+<title>{% block title %}Blackjack{% endblock %}</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2 class="mt-4 text-center">Blackjack</h2>
+
+    <p class="text-center">This game is for educational purposes only.</p>
+    <div><br></div>
+
+    <div  class="playingCards">
+        <div id="deck" class="deck-area">
+            <ul class="deck">
+                {% for _ in range(10) %}
+                <li><div class="card back">*</div></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <p>Dealer</p>
+        <div class="card rank-9 spades"><span class="rank">9</span><span class="suit">♦</span></div>
+        <div class="card back"></div>
+
+
+       <div id="player-hand" class="hand-area">
+        <p>Player</p>
+        {% for card in player_hand %}
+            <div class="card rank-{{ card.rank }} {{ card.suit }}{% if loop.last and action == 'hit' %} animate-hit{% endif %}">
+                <span class="rank">{{ card.rank }}</span>
+                <span class="suit">
+                    {% if card.suit == 'hearts' %}♥{% elif card.suit == 'diams' %}♦{% elif card.suit == 'spades' %}♠{% elif card.suit == 'clubs' %}♣{% endif %}
+                </span>
+            </div>
+        {% endfor %}
+</div>
+    </div>
+    
+    <form class="mt-4" method="post" >
+        <div class="form-group">
+            <div class="text-center mt-4">
+                <button type="submit" name="action" value="stand"class="btn btn-secondary" id="stand">Stand</button>
+                <button type="submit" name="action" value="hit"class="btn btn-primary" id="hit">Hit</button>
+                <button type="submit" name="action" value="reset" class="btn btn-danger" id="reset">Reset</button>
+            </div>
+        </div>
+    </form>
+    
+
+{% endblock %}

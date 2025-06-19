@@ -46,6 +46,13 @@ def get_sessions(app):
         resp = make_response(redirect(url_for('atm')))
         session['saving'] = '10000'
         session['checking'] = '500'
+    elif app == 'blackjack':
+        resp = make_response(redirect(url_for('blackjack')))
+        session['deck'] = []
+        session['player_hand'] = []
+        session['dealer_hand'] = []
+        session['game_over'] = False
+        session['hits'] = 0
     return resp
 
 
@@ -477,6 +484,34 @@ def blog():
 #     print(response)
 #     # key = 'AIzaSyCjPdBemzmrp2p5dV2AP_0wp2ennVbeSdo'
 #     return render_template('youtube.html')
+
+
+@app.route('/blackjack', methods=('POST', 'GET'))
+def blackjack():
+
+    if request.method == 'POST':
+        # get user input 
+        action = request.form.get('action')
+        if action == 'hit':
+            ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+            suits = ['hearts', 'diamonds', 'clubs', 'spades']
+            card = {'rank': random.choice(ranks), 'suit': random.choice(suits)}
+            session['player_hand'].append(card)
+            session['hits'] += 1
+            print('action: ', action+str(session['hits']))
+            return render_template('blackjack.html', action=action, player_hand=session['player_hand'])
+        elif action == 'stand':
+            # Logic for standing
+            pass
+        elif action == 'reset':
+            session['deck'] = []
+            session['player_hand'] = []
+            session['dealer_hand'] = []
+            session['game_over'] = False
+            session['hits'] = 0
+            return render_template('blackjack.html', action=action)
+      
+    return render_template('blackjack.html')
 
 
 if __name__ == '__main__':
