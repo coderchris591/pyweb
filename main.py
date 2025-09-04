@@ -490,28 +490,42 @@ def blog():
 def blackjack():
 
     if request.method == 'POST':
-        # get user input 
+        print("POST request for blackjack")
         action = request.form.get('action')
+
+        
         if action == 'hit':
-            ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-            suits = ['hearts', 'diamonds', 'clubs', 'spades']
-            card = {'rank': random.choice(ranks), 'suit': random.choice(suits)}
-            session['player_hand'].append(card)
-            session['hits'] += 1
-            print('action: ', action+str(session['hits']))
-            return render_template('blackjack.html', action=action, player_hand=session['player_hand'])
-        elif action == 'stand':
-            # Logic for standing
             pass
-        elif action == 'reset':
-            session['deck'] = []
-            session['player_hand'] = []
-            session['dealer_hand'] = []
-            session['game_over'] = False
-            session['hits'] = 0
-            return render_template('blackjack.html', action=action)
-      
-    return render_template('blackjack.html')
+        
+    else:
+        print("GET request for blackjack")
+        deck = get_shuffled_deck()
+        session['deck'] = deck
+
+        player_hand = session['player_hand'] = []
+        dealer_hand = session['dealer_hand'] = []
+
+        # Deal initial cards
+        for _ in range(2):
+            player_hand.append(deck.pop())
+            dealer_hand.append(deck.pop())
+        return render_template('blackjack.html')
+
+
+def get_shuffled_deck():
+
+        suits = {'hearts', 'diams', 'clubs', 'spades'}
+        ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'}
+        deck = []
+
+        for suit in suits:
+            for rank in ranks:
+                deck.append({'suit': suit, 'rank': rank})
+        random.shuffle(deck)
+        return deck
+
+
+
 
 
 if __name__ == '__main__':
