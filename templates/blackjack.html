@@ -18,39 +18,52 @@
     <p class="text-center">This game is for educational purposes only.</p>
     <div><br></div>
 
-    <div  class="playingCards">
-        <div id="deck" class="deck-area">
-            <ul class="deck">
-                {% for _ in range(10) %}
-                <li><div class="card back">*</div></li>
-                {% endfor %}
+    <div class="playingCards">
+        <div id="full">
+            <ul class="table">
+            {% for card in session['deck'] %}
+                <li>
+                <div class="card rank-{{ card.rank }} {{ card.suit }}">
+                    <span class="rank">{{ card.rank }}</span>
+                    <span class="suit">{% if card.suit == 'hearts' %}♥{% elif card.suit == 'diams' %}♦{% elif card.suit == 'spades' %}♠{% elif card.suit == 'clubs' %}♣{% endif %}</span>
+                </div>
+            </li>
+            {% endfor %}
             </ul>
         </div>
+        <div class="clear"></div>
+        <div class="clear"></div>
+        <ul class="hand">
+            {% for card in session['dealer_hand'] %}
+            <li>
+                <div class="card rank-{{ card.rank }} {{ card.suit }}">
+                    <span class="rank">{{ card.rank }}</span>
+                    <span class="suit">{% if card.suit == 'hearts' %}♥{% elif card.suit == 'diams' %}♦{% elif card.suit == 'spades' %}♠{% elif card.suit == 'clubs' %}♣{% endif %}</span>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
 
-        <p>Dealer</p>
-        <div class="card rank-9 spades"><span class="rank">9</span><span class="suit">♦</span></div>
-        <div class="card back"></div>
-
-
-       <div id="player-hand" class="hand-area">
-        <p>Player</p>
-        {% for card in player_hand %}
-            <div class="card rank-{{ card.rank }} {{ card.suit }}{% if loop.last and action == 'hit' %} animate-hit{% endif %}">
-                <span class="rank">{{ card.rank }}</span>
-                <span class="suit">
-                    {% if card.suit == 'hearts' %}♥{% elif card.suit == 'diams' %}♦{% elif card.suit == 'spades' %}♠{% elif card.suit == 'clubs' %}♣{% endif %}
-                </span>
-            </div>
-        {% endfor %}
-</div>
+          <ul class="hand">
+            {% for card in session['player_hand'] %}
+            <li>
+                <div class="card rank-{{ card.rank }} {{ card.suit }}">
+                    <span class="rank">{{ card.rank }}</span>
+                    <span class="suit">{% if card.suit == 'hearts' %}♥{% elif card.suit == 'diams' %}♦{% elif card.suit == 'spades' %}♠{% elif card.suit == 'clubs' %}♣{% endif %}</span>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
+
+    <div class="clear"></div>
     
-    <form class="mt-4" method="post" >
+    <form class=" clear mt-4" method="post" >
         <div class="form-group">
             <div class="text-center mt-4">
+                <button type="submit" name="action" value="reset" class="btn btn-danger" id="reset">Reset</button>
                 <button type="submit" name="action" value="stand"class="btn btn-secondary" id="stand">Stand</button>
                 <button type="submit" name="action" value="hit"class="btn btn-primary" id="hit">Hit</button>
-                <button type="submit" name="action" value="reset" class="btn btn-danger" id="reset">Reset</button>
             </div>
         </div>
     </form>

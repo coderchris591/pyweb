@@ -647,3 +647,7 @@
 .animate-hit {
     animation: moveCard 1s ease-out forwards;
 }
+
+.clear{
+    clear: both;
+}
