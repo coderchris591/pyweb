@@ -1,221 +1,171 @@
-{% extends "template.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title or "Chris Martinez" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-{% import "bootstrap/utils.html" as utils %}
+  <!-- Navigation -->
+  <nav>
+    <a href="#about">About</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-{% block head %} 
-{{super()}}
-<title>{% block title %}Home{% endblock %}</title>
-{% endblock %}
-
-{% block content %}
-
-<div class="container">
-<h1 class="text-center"></h1>
-
- <!-- Row 0  -->
-<div class="row">
-    <div class="col-md-2">&nbsp;</div>
-    <div class="col-md-8">
-        <div class="row space-16">&nbsp;</div>
-        <div class="row">
-
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('about') }}">
-                                <img  src="{{ url_for('static', filename='img/self_portrait.jpg') }}" style="width:80%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('get_sessions', app='guess') }}">About</a></h4>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('contact') }}">
-                                <img src="{{ url_for('static', filename='img/contact.webp') }}" style="width:100%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('contact') }}">Contact</a></h4>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('blog') }}">
-                                <img src="{{ url_for('static', filename='img/blog.png') }}" style="width:100%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('blog') }}">Blog</a></h4>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+  <!-- Header -->
+  <header>
+    <h1>My Journey</h1>
+    <p>A timeline of my education, work, and projects</p>
+    <div class="hero-buttons">
+      <a href="{{ url_for('static', filename='chris_martinez_resume.pdf') }}" target="_blank" download>Download Resume</a>
+      <a href="#contact">Contact Me</a>
     </div>
-</div>
+  </header>
 
+  <!-- About Me -->
+  <section id="about" class="about">
+    <h2>Hello! I'm Christopher Martinez</h2>
+    <img src="{{ url_for('static', filename='img/chris.jpeg') }}" alt="Profile Photo">
+    <p> I'm a Computer Science graduate and software developer passionate about building applications that bring people together. This page highlights my education, work experience, and projects.</p>
+  </section>
 
-<!-- Row 1 -->
-<div class="row">
-    <div class="col-md-2">&nbsp;</div>
-    <div class="col-md-8">
-        <div class="row">
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('get_sessions', app='guess') }}">
-                                <img src="{{ url_for('static', filename='img/numbers.jpg') }}" style="width:100%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('get_sessions', app='guess') }}">Guess the Number</a></h4>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('get_sessions', app='phrase') }}">
-                                <img src="{{ url_for('static', filename='img/hangman.png') }}" style="width:100%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('get_sessions', app='phrase') }}">Hang Man</a></h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('credit_card_validator') }}">
-                                <img src="{{ url_for('static', filename='img/creditcard.png') }}" style="width:100%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('credit_card_validator') }}">Credit Card Validator</a></h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Row 2 -->
-        <div class="row">
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('readability') }}">
-                                <img src="{{ url_for('static', filename='img/book1.gif') }}" style="width:100%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('readability') }}">Readability</a></h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('atm') }}">
-                                <img src="{{ url_for('static', filename='img/atm.png') }}" style="width:100%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('atm') }}">ATM</a></h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('fifa_world_cup') }}">
-                                <img src="{{ url_for('static', filename='img/soccer-ball.png') }}" style="width:100%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('fifa_world_cup') }}">World Cup Simulator</a></h4>
-                    </div>
-                </div>
-            </div>
-        </div>    
+  <!-- Timeline -->
+  <section id="timeline" class="timeline">
+    <h2 style="text-align:center; margin-bottom:40px;">Timeline</h2>
+    <div class="timeline-entry right">
+      <span>2025</span>
+      <h3>Grundy County - IT Helpdesk</h3>
+      <p>Provided technical support and troubleshooting for IT issues.</p>
+      <img src="{{ url_for('static', filename='img/grundy_county.png') }}" alt="Grundy County Logo">
     </div>
-    <!-- <div class="col-md-2">&nbsp;</div> -->
-</div>
-
-<!-- Row 3 -->
-<div class="row">
-    <div class="col-md-2">&nbsp;</div>
-    <div class="col-md-8">
-        <div class="row">
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('graph_theory') }}">
-                                <img  src="{{ url_for('static', filename='img/graph_theory.png') }}" style="width:80%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('graph_theory') }}">Graph Theory</a></h4>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('blackjack') }}">
-                                <img src="{{ url_for('static', filename='img/under-construction.webp') }}" style="width:100%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('blackjack') }}">Blackjack</a></h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail" style="margin-bottom: 20px;">
-                    <div class="caption text-center">
-                        <div class="position-relative">
-                            <a href="{{ url_for('index') }}">
-                                <img src="{{ url_for('static', filename='img/under-construction.webp') }}" style="width:100%; height:auto; max-width: 150px;" />
-                            </a>
-                        </div>
-                        <h4 id="thumbnail-label"><a href="{{ url_for('index') }}">Coming Soon</a></h4>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="timeline-entry left">
+      <span>2025</span>
+      <h3>Bachelor of Science in Computer Science - Lewis University</h3>
+      <p>Graduated May 2025</p>
+      <img src="{{ url_for('static', filename='img/lewis.jpg') }}" alt="Lewis University Logo">
     </div>
-</div>
+    <div class="timeline-entry right">
+      <span>2024</span>
+      <h3>Lead Developer - Hiver App</h3>
+      <p>Designed and built a Flutter mobile app for social events.</p>
+      <img src="{{ url_for('static', filename='img/hiver.png') }}" alt="Hiver App Logo">
+    </div>
+    <div class="timeline-entry left">
+      <span>2023</span>
+      <h3>Associates in Applied Science - Joliet Junior College</h3>
+      <p>Graduated December 2023</p>
+      <img src="{{ url_for('static', filename='img/jjc.jpg') }}" alt="Joliet Junior College Logo">
+    </div>
+    <div class="timeline-entry right">
+      <span>2021</span>
+      <h3>Harvard's CS50 Online Course</h3>
+      <p>Completed Harvard's introductory computer science course online.</p>
+      <img src="{{ url_for('static', filename='img/cs50.jpg') }}" alt="CS50 Logo">
+    </div>
+    <div class="timeline-entry left">
+      <span>2020</span>
+      <h3>Discovered Passion for Coding - Teamtreehouse.com</h3>
+      <p>Completed online courses in web development and programming.</p>
+      <img src="{{ url_for('static', filename='img/teamtreehouse.jpg') }}" alt="Team Treehouse Logo">
+    </div>
+  </section>
 
+  <!-- Projects -->
+  <section id="projects" class="projects">
+    <h2>Featured Projects</h2>
+    <div class="projects-grid">
+        <div class="project-card">
+          <img src="{{ url_for('static', filename='img/hiver.png') }}" alt="Hiver App Logo">
+          <p>Social events app built with Flutter. Led the development from design to deployment.</p>
+          <a href="https://thehiverapp.com" target="_blank">Visit Website</a>
+        </div>
+      <div class="project-card">
+        <img src="{{ url_for('static', filename='img/work4gov.png') }}" alt="Work4Gov Logo">
+        <p>A job board for government opportunities targeted at college students.</p>
+        <a href="#" target="_blank">Coming Soon</a>
+      </div>
+      <div class="project-card">
+        <h3>Personal Portfolio</h3>
+        <p>My portfolio website showcasing projects, skills, and professional experience.</p>
+      </div>
+    </div>
+  </section>
 
+  <!-- Python Web Apps -->
+  <section id="python-apps" class="projects">
+    <h2>Python Web Apps</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <img src="{{ url_for('static', filename='img/numbers.jpg') }}" alt="Guess the Number">
+        <div class="content">
+          <h3>Guess the Number</h3>
+          <p>A simple guessing game built with Flask. Try to guess the correct number!</p>
+            <a href="{{ url_for('get_sessions', app='guess') }}" target="_blank">Run App</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="{{ url_for('static', filename='img/hangman.png') }}" alt="Flask Hangman">
+        <div class="content">
+          <h3>Hangman Game</h3>
+          <p>A classic hangman game built with Flask. Can you guess the word before time runs out?</p>
+          <a href="{{ url_for('get_sessions', app='phrase') }}" target="_blank">Run App</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="{{ url_for('static', filename='img/creditcard.png') }}" alt="Credit Card Validator">
+        <div class="content">
+          <h3>Credit Card Validator</h3>
+          <p>A Flask app that validates credit card numbers using the Luhn algorithm.</p>
+          <a href="{{ url_for('credit_card_validator') }}" target="_blank">Run App</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Skills -->
+  <section id="skills" class="skills">
+    <h2>Skills</h2>
+    <div>
+      <span class="skill-badge">Programming</span>
+      <span class="skill-badge">Mobile/Web Development</span>
+      <span class="skill-badge">Database Management</span>
+      <span class="skill-badge">Computer Aided Drafting</span>
+    </div>
+  </section>
 
+  <!-- Footer -->
+  <footer id="contact">
+    <p>Contact me: <a href="mailto:chmartinez2014@gmail.com" target="_blank">chmartinez2014@gmail.com</a></p>
+    <p><a href="https://www.linkedin.com/in/chris-martinez-software/" target="_blank">LinkedIn</a> | <a href="https://github.com/coderchris591" target="_blank">GitHub</a></p>
+    <p>&copy; 2025 Christopher Martinez</p>
+  </footer>
 
+  <!-- Scroll Animation Script -->
+  <script>
+    const entries = document.querySelectorAll('.timeline-entry');
 
+    function isInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return rect.top <= (window.innerHeight || document.documentElement.clientHeight) - 50;
+    }
 
-    <footer>
-        <nav class="text-center">
-            <ul class="list-inline">
-                <li class="list-inline-item" style="margin-right: 10px;"><a href="https://github.com/coderchris591" target="_blank"><img src="{{ url_for('static', filename='img/github-mark.png') }}" alt="Github" style="width:30px; height:auto;"></a></li>
-                <li class="list-inline-item" style="margin-right: 10px;"><a href="https://www.linkedin.com/in/chris-martinez-software/" target="_blank"><img src="{{ url_for('static', filename='img/linkedin-logo-black.png') }}" alt="LinkedIn" style="width:60px; height:auto;"></a></li>
-                <li class="list-inline-item" style="margin-right: 10px;"><a href="https://x.com/chrismartinezII" target="_blank"><img src="{{url_for('static', filename='img/x-logo-black.png')}}" alt="X Profile" style="width:25px; height:auto;"></a></li>
-                <li class="list-inline-item" style="margin-right: 10px;"><a href="mailto:chmartinez2014@gmail.com" target="_blank"><img src="{{ url_for('static', filename='img/email-icon.png') }}" alt="Github" style="width:30px; height:auto;"></a></li>
-            </ul>
-        </nav>
-        <p class="text-center"><small>&copy; Chris Martinez 2024</small></p>
-    </footer>
+    function showTimelineEntries() {
+      entries.forEach(entry => {
+        if (isInViewport(entry)) {
+          entry.classList.add('visible');
+        }
+      });
+    }
 
-</div>
-{% endblock %}
+    window.addEventListener('scroll', showTimelineEntries);
+    window.addEventListener('load', showTimelineEntries);
+  </script>
 
- 
+</body>
+</html>

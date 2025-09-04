@@ -1,54 +1,150 @@
-{% extends "template.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credit Card Validator - Chris Martinez</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Prism.js CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
 
-{% block head %} 
-{{super()}}
-<title>{% block title %}Credit Card Validator{% endblock %}</title>
-{% endblock %}
+  <!-- Prism.js Core + Python language -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <style>
+    .validator-card {
+      min-width: 60%;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: var(--white);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      animation: fadeIn 0.6s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      background-color: var(--primary);
+      color: var(--white);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #1015a8;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .valid { color: green; }
+    .invalid { color: red; }
+  </style>
+</head>
+<body>
 
-{% block content %}
-    
-    <div class="credit-div container mt-4">
-        <h2 class="text-center">Credit Card Validator</h2>
+    <header style="text-align: center; margin-bottom: 40px;">
+      <h1>Credit Card Validator</h1>
+      <p>Enter a credit card number to check its validity and type.</p>
+    </header>
 
-        <p class="info text-center">Validate any credit card number</p>
-        <form class="normal" method="post">
-            <div class="form-group">
-                <input class="form-control" type="text" id="ccn" name="ccn" placeholder="xxxx xxxx xxxx xxxx" autocomplete="off">
-            </div>
-            <script>
-                document.getElementById('ccn').addEventListener('input', function (e) {
-                    let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-                    let formattedValue = value.match(/.{1,4}/g)?.join(' ') || '';
-                    e.target.value = formattedValue;
-                });
-            </script>
-            <div class="form-group text-center">
-                <input class="btn btn-primary" type="submit" value="Validate">
-            </div>
+  <section class="projects">
+    <div class="projects-grid" style="justify-content: center;">
+      <div class="validator-card">
+        <h2>Credit Card Validator</h2>
+        <form method="POST" action="{{ url_for('credit_card_validator') }}">
+          <input type="text" name="ccn" placeholder="Enter credit card number" required>
+          <br>
+          <button type="submit">Validate</button>
         </form>
 
-        {% if card_type == None %}
-            {{ pass }}
-        {% elif card_type == "Invalid" %}
-            <p class="text-center alert alert-danger">Invalid</p>
-        {% else %} 
-            <div class="credit text-center">
-                {% if card_type == "AMERICAN EXPRESS" %}
-                    <img  src="{{ url_for('static', filename='img/amex.png') }}" alt="American Express" class="img-fluid">
-                    <p class="alert alert-success ">Valid American Express card</p>
-                {% elif card_type == "DISCOVER" %}
-                    <img src="{{ url_for('static', filename='img/discover.png') }}" alt="Discover" class="img-fluid">
-                    <p class="alert alert-success">Valid Discover card</p>
-                {% elif card_type == "MASTERCARD" %}
-                    <img src="{{ url_for('static', filename='img/mastercard.png') }}" alt="MasterCard" class="img-fluid">
-                    <p class="alert alert-success">Valid MasterCard</p>
-                {% elif card_type == "VISA" %}
-                    <img src="{{ url_for('static', filename='img/visa.png') }}" alt="Visa" class="img-fluid">
-                    <p class="alert alert-success">Valid Visa card</p>
-                {% endif %}
-            </div>
+        {% if card_type %}
+          {% if card_type == 'Invalid' %}
+            <div class="result invalid">Invalid Card Number</div>
+          {% else %}
+            <div class="result valid">{{ card_type }}</div>
+          {% endif %}
         {% endif %}
-        <p class="alert alert-info text-center">This site will not collect or store your credit card number. It simply applies the number to the <a href="https://en.wikipedia.org/wiki/Luhn_algorithm" target="_blank">Luhn Algorithm</a> to determine if the card is valid.</p>
+      </div>
     </div>
-{% endblock %}
+  </section>
 
+  <section class="projects">
+    <pre><code class="language-python">
+@app.route('/credit-card-validator', methods=('POST', 'GET'))
+def credit_card_validator():
+    DISCOVER = 16
+    MASTERCARD = 16
+    AMERICAN_EXPRESS = 15
+    VISA = 13, 16
+    card_type = None
+    credit_card_number = ''
+    
+    if request.method == 'POST':
+        try:
+            credit_card_number = request.form.get('ccn')
+        except ValueError:
+            pass
+        credit_card_number = ''.join(credit_card_number.split())
+        if credit_card_number.isdigit() == False:
+            return render_template('credit.html', card_type='Invalid')
+            
+
+    if len(credit_card_number) == MASTERCARD and credit_card_number[0] == '5' and (credit_card_number[1] >= '1' or credit_card_number <= '5'):
+        card_type = "MASTERCARD"
+    elif len(credit_card_number) == DISCOVER and credit_card_number[0] == '6':
+        card_type = "DISCOVER"
+    elif len(credit_card_number) == AMERICAN_EXPRESS and credit_card_number[0] == '3' and (credit_card_number[1] == '4' or credit_card_number[1] == '7'):
+        card_type = "AMEX"
+    elif len(credit_card_number) == VISA[0] or len(credit_card_number) == VISA[1] and credit_card_number[0] == '4':
+        card_type = "VISA"
+    elif credit_card_number == '':
+        return render_template('credit.html', card_type=None)
+
+
+    every_other = []
+    for i in range(2, len(credit_card_number)+1, 2):
+        every_other.append(credit_card_number[-i])
+
+    other_every = []
+    for i in range(1, len(credit_card_number)+1, 2):
+        other_every.append(int(credit_card_number[-i]))
+
+    for f in range(len(every_other)):
+        every_other[f] = int(every_other[f]) * 2
+        every_other[f] = str(every_other[f])
+
+    products_digits = []
+
+    for i in range(len(every_other)):
+        for f in range(len(every_other[i])):
+            products_digits.append(int(every_other[i][f]))
+
+    total = sum(products_digits) + sum(other_every)
+
+    total = str(total)
+    if total[-1] == '0':
+        return render_template('credit.html', card_type=card_type)
+    else:
+        return render_template('credit.html', card_type='Invalid')
+    </code></pre>
+  </secion>
+
+</body>
+</html>
