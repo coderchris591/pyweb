@@ -1,47 +1,250 @@
-{% extends "template.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phrase Guess - Chris Martinez</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Prism.js CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
 
-{% block head %} 
-{{super()}}
-<title>{% block title %}Hang Man{% endblock %}</title>
-{% endblock %}
+  <!-- Prism.js Core + Python language -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <style>
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s forwards;
+      animation-delay: 0.2s;
+    }
+    .feedback {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .interactive-button:hover {
+      transform: translateY(-3px);
+      transition: transform 0.2s;
+    }
 
-{% block content %}
-    <div class="container">
-    <h2 class="text-center">Guess the Phrase</h2> 
+    /* Letter button grid */
+    .letter-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 15px;
+    }
+    .letter-grid button {
+      width: 40px;
+      height: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background-color: var(--white);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .letter-grid button:hover:not(:disabled) {
+      background-color: var(--primary);
+      color: var(--white);
+      transform: translateY(-3px);
+    }
+    .letter-grid button:disabled {
+      background-color: #ddd;
+      color: #777;
+      cursor: not-allowed;
+    }
 
-    <div class="text-center">
-        {% if mistakes == 0 %}
-            <img src="{{ url_for('static', filename='img/hangman1.png') }}" class="img-fluid">
-        {% elif mistakes == 1 %}
-            <img src="{{ url_for('static', filename='img/hangman2.png') }}" class="img-fluid">
-        {% elif mistakes == 2 %}
-            <img src="{{ url_for('static', filename='img/hangman3.png') }}" class="img-fluid">
-        {% elif mistakes == 3 %}
-            <img src="{{ url_for('static', filename='img/hangman4.png') }}" class="img-fluid">
-        {% elif mistakes == 4 %}
-            <img src="{{ url_for('static', filename='img/hangman5.png') }}" class="img-fluid">
-        {% elif mistakes == 5 %}
-            <img src="{{ url_for('static', filename='img/hangman6.png') }}" class="img-fluid"> 
-        {% endif %}
-        <h2 class="mt-3 display-2">
-        {% for letter in output %}
-            {% if letter == ' ' %} 
-            <span class="mx-4 display-1">-</span>
-            {% else %} 
-            <span class="mx-4 display-1">{{ letter }}</span>
-            {% endif %}
-        {% endfor %}
-        </h2>
+    /* Phrase display */
+    .phrase-display {
+      font-size: 1.5rem;
+      letter-spacing: 3px;
+      text-align: center;
+      margin-top: 20px;
+      word-wrap: break-word;
+    }
+    .correct-letter { color: green; font-weight: 700; }
+    .underscore { color: #555; }
 
-    </div> 
-    <div class="alphabet text-center mt-4">   
-        <form action="" method="get" style="max-width: 600px; margin: auto;">
-            <div class="d-flex flex-wrap justify-content-center">
-                {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
-                    <input id="guess{{ loop.index }}" type="submit" name="guess" value="{{ letter }}" class="btn btn-primary" style="margin: 2px;" {% if letter.lower() in guesses %} disabled {% endif %}>
-                {% endfor %}
-            </div>
-        </form>
+    /* Mistakes counter */
+    .mistakes {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+
+    /* Wrong guesses */
+    .wrong-guesses {
+      text-align: center;
+      margin-top: 15px;
+      color: red;
+      font-weight: 600;
+    }
+
+    /* Simple Hangman figure */
+    .hangman {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 2rem;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+  </style>
+</head>
+<body>
+
+{% if game_over %}
+    
+  <!-- Page Header -->
+  <header style="text-align: center; margin-bottom: 40px;">
+    {% if lost %}
+    <h1>Game Over</h1>
+    <p>You lost! The phrase was: {{ phrase }}</p>
+    {% else %}
+    <h1>Congratulations!</h1>
+    <p>You guessed the phrase: {{ phrase }}</p>
+    {% endif %}
+  </header>
+
+  <section id="phrase-game" class="projects">
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="{{ url_for('get_sessions', app='phrase') }}">Play Again</a>
     </div>
-</div>
-{% endblock %}
+  </section>
+
+{% else %}
+
+  <!-- Page Header -->
+  <header style="text-align: center; margin-bottom: 40px;">
+    <h1>Phrase Guess</h1>
+    <p>Try to guess the phrase before you reach 6 mistakes!</p>
+  </header>
+
+  <!-- Phrase Game Section -->
+  <section id="phrase-game" class="projects">
+    <div class="projects-grid" style="justify-content: center;">
+      <div class="project-card fade-in" style=" text-align: center;">
+
+        <!-- Hangman figure -->
+        <div class="hangman">
+          {% set hangman_stages = ["", "O", "O<br>|", "O<br>|<br>/", "O<br>|<br>/ \\", "O<br>/|\\<br>/ \\", "O<br>/|\\<br>/ \\"] %}
+          {{ hangman_stages[mistakes] | safe }}
+        </div>
+
+        <!-- Display the current phrase -->
+        <div class="phrase-display">
+          {% for letter in output %}
+            {% if letter == '_' %}
+              <span class="underscore">_</span>
+            {% elif letter == ' ' %}
+              <span style="display:inline-block; width: .5em;">&nbsp;</span>
+            {% else %}
+              <span class="correct-letter">{{ letter }}</span>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <!-- Mistakes counter -->
+        <div class="mistakes">
+          Mistakes: {{ mistakes }} / 6
+        </div>
+
+        <!-- Wrong guesses -->
+        {% set wrong_letters = [] %}
+        {% for letter in guesses %}
+          {% if letter not in output %}
+            {% set _ = wrong_letters.append(letter) %}
+          {% endif %}
+        {% endfor %}
+        {% if wrong_letters %}
+          <div class="wrong-guesses">
+            Wrong guesses: {{ wrong_letters | join(', ') }}
+          </div>
+        {% endif %}
+
+        <!-- Letter buttons -->
+        <div class="letter-grid">
+          {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
+            <form method="get" action="{{ url_for('phrase') }}" style="display:inline;">
+              <input type="hidden" name="guess" value="{{ letter }}">
+              <button type="submit"
+                      {% if letter.lower() in guesses %}disabled{% endif %}
+                      class="interactive-button">
+                {{ letter }}
+              </button>
+            </form>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section class="projects">
+    <pre><code class="language-python">
+@app.route('/phrase')
+def phrase():
+    # get session variables
+
+    # guesses 
+    guesses = session['guesses']
+    # phrase
+    phrase = session['phrase']
+    # mistakes
+    mistakes = session['mistakes']
+    # output
+    output = session['output']
+
+    # get guess
+    guess = request.args.get('guess' ,'').lower()
+    # print("Guess: ", guess)
+    if guess != '':
+        # update guesses
+        guesses.append(guess)
+        session['guesses'] = guesses
+    
+    # update output
+    is_mistake = True
+    for i, letter in enumerate(phrase):
+        if guess == letter.lower():
+            is_mistake = False
+            if letter.isupper():
+                output[i] = guess.upper()
+            else:
+                output[i] = guess
+    if guess == '':
+        is_mistake = False
+    # increment mistakes
+    if is_mistake:
+        mistakes += 1
+        session['mistakes'] = mistakes
+
+    # check mistakes
+    if mistakes >= 6:
+        return render_template('phrase.html', game_over=True, lost=True, phrase=phrase)
+    
+    string_output = ''.join(map(str, output))
+    if str(string_output) == phrase:
+        return render_template('phrase.html', game_over=True, lost=False, phrase=phrase)
+
+    # debug 
+    # print("guesses:", guesses)
+    # print('Phrase: ', phrase)
+    # print('Mistakes: ', mistakes)
+    # print("Output: ", output)
+    return render_template('phrase.html', output=output, guesses=guesses, mistakes=mistakes)
+    </code></pre>
+  </section>
+{% endif %}
+
+</body>
+</html>

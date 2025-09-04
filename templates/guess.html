@@ -1,69 +1,188 @@
-{% extends "template.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess the Number - Chris Martinez</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Prism.js CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+
+  <!-- Prism.js Core + Python language -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <style>
+    /* Fade-in animation for project card */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s forwards;
+      animation-delay: 0.2s;
+    }
+
+    /* Slide/fade for feedback messages */
+    .feedback {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Slight hover lift effect for buttons */
+    .interactive-button:hover {
+      transform: translateY(-3px);
+      transition: transform 0.2s;
+    }
+
+    /* Number button styling */
+    .number-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .number-grid button {
+      width: 45px;
+      height: 45px;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background-color: var(--white);
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .number-grid button:hover:not(:disabled) {
+      background-color: var(--primary);
+      color: var(--white);
+      transform: translateY(-3px);
+    }
+
+    .number-grid button:disabled {
+      background-color: #ddd;
+      color: #777;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
 
 
-{% block head %} 
-{{super()}}
-<title>{% block title %}Guess{% endblock %}</title>
-{% endblock %}
+  <!-- Page Header -->
+  <header>
+    <h1>Guess the Number</h1>
+    <p>A simple guessing game built with Flask. Can you find the correct number?</p>
+  </header>
 
-{% block content %}
-<div class="container">
+  <!-- Guess Game Section -->
+  <section id="guess-game" class="projects">
+    <div class="projects-grid" style="justify-content: center;">
+      <div class="project-card fade-in" style="text-align: center;">
+        <img src="{{ url_for('static', filename='img/numbers.jpg') }}" alt="Guess the Number">
+        <div class="content">
+          {% if random_number == 0 %}
+            <p class="feedback" style="color:red;">Cookies are disabled. Please enable cookies to play this game.</p>
+          {% else %}
+            {% if guess == random_number and attempts != -1 %}
+              <p class="feedback" style="color:green; font-weight: 600;">🎉 Congratulations! You guessed the number in {{ attempts }} attempt{{ 's' if attempts > 1 else '' }}.</p>
+            {% elif attempts != -1 and guess is not none %}
+              <p class="feedback" style="color:red; font-weight: 600;">Last guess: {{ guess }}. Try again!</p>
+            {% endif %}
 
-    <h2 class="text-center">Guess the Number</h2>
+            {% if attempts != -1 %}
+              <div class="number-grid">
+                {% for i in range(1, 11) %}
+                  <form method="get" action="{{ url_for('guess') }}" style="display:inline;">
+                    <input type="hidden" name="guess" value="{{ i }}">
+                    <button type="submit" 
+                            {% if i in guesses %}disabled{% endif %} 
+                            class="interactive-button">
+                      {{ i }}
+                    </button>
+                  </form>
+                {% endfor %}
+              </div>
+            {% endif %}
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var guess = "{{ guess }}";
-            var randomNumber = "{{ random_number }}";
+            {% if attempts != -1 %}
+              <form method="get" action="{{ url_for('reset_guess') }}" style="margin-top: 15px;">
+                <input type="submit" value="Reset Game" class="interactive-button" style="padding: 5px 10px; border-radius: 5px; background-color: var(--hover-bg); color: var(--text-main); border: none; cursor: pointer;">
+              </form>
+            {% endif %}
 
-            if (guess !== '' && guess !== 'None') {
-                var message = "";
-                if (guess == randomNumber) {
-                    message = "You Got It!";
-                } else if (guess > randomNumber) {
-                    message = "It's Smaller than " + guess + "!";
-                } else {
-                    message = "It's Bigger than " + guess + "!";
-                }
-
-                var alertBox = document.createElement('div');
-                alertBox.className = 'alert alert-info text-center';
-                alertBox.innerText = message;
-                alertBox.style.width = '60%';
-                alertBox.style.margin = '10px auto';
-
-
-                document.body.appendChild(alertBox);
-
-                setTimeout(function() {
-                    alertBox.remove();
-                }, 3000);
-            }
-        });
-    </script>
-
-    <p class="text-center">Number of guesses: {{ attempts }}</p>
-
-    <form action="" method="get" class="numbers text-center">
-        {% if guess == random_number %}
-            <input type="button" class="btn btn-success" value="{{ random_number }}">
-        {% else %}
-            <br>
-            {% for i in range(1, 11) %}
-                <input name="guess" type="submit" class="btn btn-primary" value="{{ i }}" {% if i in guesses %} disabled {% elif guess == random_number %} disabled {% endif %} style="width: 5%; min-width: 40px; margin: 3px;">
-            {% endfor %}
-        {% endif %}
-    </form>
-
-
-    {% if guess == random_number %}
-        <div class="pt-5 text-center">
-            <form action="{{ url_for('get_sessions', app='guess') }}" method="get">
-                <button type="submit" class="btn btn-success">Play Again</button>
-            </form>
+            <div style="margin-top: 20px;">
+              <p class="feedback"><strong>Previous guesses:</strong> {{ guesses | join(', ') if guesses else 'None' }}</p>
+              <p class="feedback"><strong>Attempts:</strong> {{ attempts if attempts != -1 else 'Game finished!' }}</p>
+            </div>
+          {% endif %}
         </div>
-    {% endif %}
+      </div>
+    </div>
+  </section>
 
-</div>
+  <section class="projects">
+    <pre><code class="language-python">
+@app.route('/guess')
+def guess():
+  # guesses 
+  guesses = session.get('guesses', [])
+  attempts = session.get('attempt', 0)
+  try:
+      random_number = int(request.cookies.get('random_number'))
+      if random_number == 10:
+          random_number = 10
+      print("random number: ", random_number)
+      print(type(random_number))
+      attempts += 1
+  except (TypeError, ValueError):
+      random_number = 0
 
-{% endblock %}
+  session['attempt'] = attempts
+  guess = request.args.get('guess', '')
+  try:
+      guess = int(guess)
+  except ValueError:
+      print("Invalid guess: ", guess, ValueError)
+      guess = None
+
+  if guess is not None:
+      guesses.append(guess)
+  session['guesses'] = guesses
+  print(guesses)
+
+  print("random number: ", random_number)
+  print("guess: ", guess)
+
+  if random_number == 0:
+      return "Cookies Disabled: Please enable cookies in your browser's settings to play this game."
+
+  if guess == random_number:
+      session['attempt'] = -1
+
+  return render_template('guess.html',
+                        guess=guess,
+                        random_number=random_number,
+                        attempts=attempts,
+                        guesses=guesses)
+
+@app.route('/reset_guess')
+def reset_guess():
+  session.pop('guesses', None)
+  session['attempt'] = 0
+  resp = make_response(redirect(url_for('guess')))
+  resp.set_cookie('random_number', str(random.randint(1, 20)))  # or your range
+  return resp
+      </code></pre>
+  </section>
+</body>
+</html>
