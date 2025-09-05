@@ -1,15 +1,29 @@
+import os
 from flask import Flask, make_response, redirect, session, url_for, render_template, request
 import random
 from flask import Flask
-from work4gov.routes import work4gov
+from work4gov.routes import work4gov, db
+import os
 
 app = Flask(
     __name__,
     template_folder='templates',   # PYWEB templates
     static_folder='static'         # PYWEB static
 )
+app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'work4gov.sqlite'),
+    )
+
+# ensure the instance folder exists
+try:
+    os.makedirs(app.instance_path)
+except OSError:
+    pass
 
 app.register_blueprint(work4gov, url_prefix='/work4gov')
+db.init_app(app)
+
 
    
 @app.route('/')

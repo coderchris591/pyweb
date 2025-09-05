@@ -1,25 +1,17 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, g, jsonify
-import requests, my_secrets, db
-from db import get_db
+from flask import render_template, request, redirect, url_for, flash, session, g, jsonify
+import requests
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
 import os
 import functools
+from . import my_secrets, db
 
 from flask import Blueprint
 
-work4gov = Blueprint('work4gov',__name__, instance_relative_config=True, template_folder='templates', static_folder='static')
-work4gov.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(work4gov.instance_path, 'work4gov.sqlite'),
-    )
-# ensure the instance folder exists
-try:
-    os.makedirs(work4gov.instance_path)
-except OSError:
-    pass
+work4gov = Blueprint('work4gov',__name__, template_folder='templates', static_folder='static')
 
-db.init_app(work4gov)
+
+
 
 
 headers = {
@@ -42,7 +34,7 @@ def register():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        db = get_db()
+        db = db.get_db()
         error = None
 
         if not email:
@@ -77,7 +69,7 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        db = get_db()
+        db = db.get_db()
         error = None
         user = db.execute(
             'SELECT * FROM user WHERE email = ?', (email,)
@@ -105,7 +97,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
+        g.user = db.get_db().execute(
             'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
 
@@ -126,7 +118,7 @@ def login_required(view):
     return wrapped_view
 
 
-@work4gov.route("/", methods=['POST', 'GET'])
+@work4gov.route("/search", methods=['POST', 'GET'])
 @login_required
 def search():
     jobs = []
@@ -151,7 +143,7 @@ def search():
     if location:
         location = location.replace(" ", "")
 
-    db = get_db()
+    db = db.get_db()
     # Fetch the current user data from the database
     user_data = db.execute(
         "SELECT position_title, minimum_salary, location, hiring_path, remote FROM user WHERE id=?",
@@ -263,7 +255,7 @@ def search():
 #             flash(f"Please provide an answer for {current_answer.replace('_', ' ')}.")
 #             return render_template('questionnaire.html', question_index=question_index)
 
-#         db = get_db()
+#         db = db.get_db()
 #         db.execute(
 #             "UPDATE user SET {} = ? WHERE id = ?".format(current_answer),
 #             (answer, g.user['id'])
@@ -328,7 +320,7 @@ def account():
         remote = request.form.get('remote')
 
         # Fetch the current user data from the database
-        db = get_db()
+        db = db.get_db()
         user_data = db.execute(
             "SELECT position_title, minimum_salary, location, hiring_path, remote FROM user WHERE id=?",
             (g.user['id'],)
@@ -374,7 +366,7 @@ def account():
         reset = request.args.get('reset', '')
         if reset == 'true':
             # Reset the user data to default values
-            db = get_db()
+            db = db.get_db()
             db.execute(
                 "UPDATE user SET position_title=?, minimum_salary=?, location=?, hiring_path=?, remote=? WHERE id=?",
                 (None, None, None, None, None, g.user['id'])
@@ -384,7 +376,7 @@ def account():
             return redirect(url_for('account'))
         else:
             # Fetch the current user data for the GET request
-            db = get_db()
+            db = db.get_db()
             user_data = db.execute(
                 "SELECT position_title, minimum_salary, location, hiring_path, remote FROM user WHERE id=?",
                 (g.user['id'],)
