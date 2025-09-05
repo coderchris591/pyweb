@@ -1,6 +1,2 @@
 Flask==3.0.0
-Flask-Bootstrap==3.3.7.1
-flask_wtf
-wtforms
-wtforms.validators
-flask-mail
+requests
