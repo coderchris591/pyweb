@@ -4,8 +4,8 @@
 <div class="flex-container">
     <h2>Account</h2>
     <div class="user-buttons">
-        <a href="/logout">Logout</a>
-        <a href="/">Home</a>
+        <a href="{{ url_for('work4gov.logout') }}">Logout</a>
+        <a href="{{ url_for('work4gov.search') }}">Home</a>
     </div> 
 </div>
 {% endblock %}
@@ -13,7 +13,7 @@
 
 
 {% block content %}
-    <form  method="POST" action="/account">
+    <form  method="POST" action="{{ url_for('work4gov.account') }}">
         <h3>Set your preferences</h3>
         <input id="keywords" name="position_title" type="text" autocomplete="off" placeholder="Position Title...">
         <ul id="suggestions" class="suggestions-list" style="display: none;"></ul>
@@ -57,7 +57,7 @@
             <label for="remote-no">No</label>
         </div>
         <div class="submit-buttons">
-            <a id='reset' href="{{url_for('account', reset='true')}}">Reset</a>
+            <a id='reset' href="{{url_for('work4gov.account', reset='true')}}">Reset</a>
             <button id='filter' type="submit">Set</button>
         </div>
 
