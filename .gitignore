@@ -1,0 +1,90 @@
+# ------------------------
+# Operating System Files
+# ------------------------
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# ------------------------
+# Node.js
+# ------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ------------------------
+# Python
+# ------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+*.venv
+env/
+venv/
+ENV/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# ------------------------
+# Java
+# ------------------------
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.ipr
+*.iws
+target/
+
+# ------------------------
+# IDEs / Editors
+# ------------------------
+# Visual Studio Code
+.vscode/
+
+# JetBrains IDEs (IntelliJ, PyCharm, WebStorm)
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ------------------------
+# Logs and databases
+# ------------------------
+*.log
+*.sql
+*.sqlite
+*.db
+
+# ------------------------
+# Miscellaneous
+# ------------------------
+*.bak
+*.swp
+*.tmp
+*.orig
+
+# ------------------------
+# Environment / Secrets
+# ------------------------
+.env
+.env.local
+.env.*.local
