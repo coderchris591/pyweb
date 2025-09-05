@@ -363,7 +363,7 @@ def account():
         reset = request.args.get('reset', '')
         if reset == 'true':
             # Reset the user data to default values
-            conn = conn.get_db()
+            conn = db.get_db()
             conn.execute(
                 "UPDATE user SET position_title=?, minimum_salary=?, location=?, hiring_path=?, remote=? WHERE id=?",
                 (None, None, None, None, None, g.user['id'])
@@ -373,7 +373,7 @@ def account():
             return redirect(url_for('work4gov.account'))
         else:
             # Fetch the current user data for the GET request
-            conn = conn.get_db()
+            conn = db.get_db()
             user_data = conn.execute(
                 "SELECT position_title, minimum_salary, location, hiring_path, remote FROM user WHERE id=?",
                 (g.user['id'],)
