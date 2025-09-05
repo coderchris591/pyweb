@@ -1,0 +1,508 @@
+:root {
+    --primary-background-color: offwhite;
+    --header-text-color: black;
+    --primary-text-color: black;
+    --secondary-text-color: #b0b0b0;
+    --tertiary-text-color: red;
+    --button-background-color: #31cffb;
+    --button-hover-color: #fb230b;
+    --input-border-color: #333;
+    --input-focus-border-color: black;
+    --box-shadow-color: rgba(255, 255, 255, 0.1);
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+}
+
+body {
+    display: block;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--tertiary-text-color);
+}
+
+.job-card {
+    display: block;
+    background-color: var(--primary-background-color);
+    margin: 15px auto;
+    padding: 5px 15px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    border-radius: 2%;
+    font-size: .9rem;
+}
+
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--secondary-text-color);
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-background-color);
+    box-shadow: 0 0 5px rgba(65, 64, 64, 0.2);
+    padding: 10px;
+    margin: 20px auto;
+    max-width: 500px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+
+
+
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"] {
+    width: 100%;
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+    transition: border-color 0.3s;
+}
+form select {
+    width: 100%;
+    margin: 10px 0;
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+    padding: 10px;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    transition: border-color 0.3s;
+}
+
+form select:focus {
+    border-color: var(--input-focus-border-color);
+    outline: none;
+}
+
+
+
+form input[type="text"]:focus,
+form input[type="password"]:focus,
+form input[type="email"]:focus {
+    border-color: var(--input-focus-border-color);
+    outline: none;
+}
+
+form button[type="submit"], form button[type="button"] {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.suggestions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: white;
+    border: 1px solid #ccc;
+    overflow-y: auto;
+    width: 300px;
+    z-index: 1000;
+  }
+  
+  .suggestions-list li {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .suggestions-list li:hover {
+    background-color: #eee;
+  }
+
+.submit-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    color: white;
+    box-shadow: 0 0 5px rgba(65, 64, 64, 0.2);
+}
+
+.submit-buttons button {
+    height: 40px;
+    min-width: 120px;
+}
+
+#reset {
+    border-radius: 5px;
+    width: 120px;
+    color: red;
+    border: 1px solid red;
+    background-color: white;
+    text-align: center;
+    margin: 0 auto;
+    
+}
+
+#filter {
+    background-color: #0bc014;
+    border: 1px solid black;
+    color: white;
+
+}
+
+
+
+form label {
+    width: 100%;
+    margin-bottom: 5px;
+    color: var(--primary-text-color);
+    font-weight: bold;
+    text-align: center;
+}
+
+button[disabled] {
+    background-color: #666;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.custom-select select {
+    display: none; /*hide original SELECT element*/
+}
+
+.select-selected {
+    background-color: #333;
+    padding: 10px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 5px var(--box-shadow-color);
+}
+
+.select-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+    max-width: 500px;
+}
+
+.select-items div {
+    padding: 10px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #333;
+    box-shadow: 0 0 5px var(--box-shadow-color);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.select-items div.selected {
+    background-color: #444;
+    border-color: var(--input-focus-border-color);
+}
+
+.select-items div:hover {
+    background-color: #555;
+}
+
+.select-selected:after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    border: 6px solid transparent;
+    border-color: var(--input-border-color) transparent transparent transparent;
+}
+
+.select-selected.select-arrow-active:after {
+    border-color: transparent transparent var(--input-border-color) transparent;
+    top: 7px;
+}
+
+.custom-select .selected {
+    background-color: #444;
+    border-color: var(--input-focus-border-color);
+}
+
+.flashes {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.flashes li {
+    background-color: green;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    max-width: 250px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.job-card {
+    display: block;
+    background-color: var(--primary-background-color);
+    margin: 15px auto;
+    padding: 5px 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 2%;
+    font-size: .9rem;
+}
+
+.job-card-link a {
+    color: var(--primary-text-color);
+}
+
+.selected-positions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+    max-width: 500px;
+}
+
+.selected-positions div {
+    padding: 10px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+    background-color: #333;
+    box-shadow: 0 0 5px var(--box-shadow-color);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.selected-positions div:hover {
+    background-color: #444;
+    border-color: var (--input-focus-border-color);
+}
+
+.selected-positions div .remove-btn {
+    margin-left: 10px;
+    color: var(--button-hover-color);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.job-count {
+    font-size: 1.2em;
+    color: #bb86fc;
+    margin-top: 10px;
+    text-align: center;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.user-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.user-buttons a {
+    background-color: var(--button-background-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.account-container {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--box-shadow-color);
+    max-width: 600px;
+    margin: 20px auto;
+    color: var(--primary-text-color);
+}
+
+.account-container h3 {
+    text-align: center;
+    color: var(--tertiary-text-color);
+}
+
+.answer-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.answer-item label {
+    flex: 1 1 100%;
+    margin-bottom: 5px;
+}
+
+.answer-item input,
+.answer-item select.styled-select {
+    flex: 1 1 100%;
+    padding: 10px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+    background-color: #333;
+    color: var(--primary-text-color);
+    margin-bottom: 10px;
+}
+
+.answer-item button {
+    background-color: #cf6679;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex: 1 1 100%;
+}
+
+.answer-item button:hover {
+    background-color: #b00020;
+}
+
+.account-container button[type="submit"] {
+    background-color: var(--button-background-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 20px auto 0;
+}
+
+.account-container button[type="submit"]:hover {
+    background-color: var(--button-hover-color);
+}
+
+.answer-item select.styled-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+.answer-item select.styled-select:focus {
+    border-color: var(--input-focus-border-color);
+    outline: none;
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    header {
+        color: var(--header-text-color);
+        margin-top: 20px;
+    }
+
+    .job-card {
+        padding: 10px;
+    }
+
+
+    form input[type="text"],
+    form input[type="password"],
+    form input[type="email"] {
+        padding: 8px;
+    }
+
+    form button[type="submit"], form button[type="button"] {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .select-items div {
+        padding: 8px;
+    }
+
+    .selected-positions div {
+        padding: 8px;
+    }
+
+    .job-count {
+        font-size: 1rem;
+        padding: 8px;
+    }
+
+    .submit-buttons button {
+        height: 40px;
+    }
+
+    .logo {
+        width: 200px;
+    }
+
+    .answer-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .answer-item label,
+    .answer-item input,
+    .answer-item select.styled-select,
+    .answer-item button {
+        width: 100%;
+    }
+}

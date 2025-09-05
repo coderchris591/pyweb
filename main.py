@@ -1,17 +1,16 @@
-import os
 from flask import Flask, make_response, redirect, session, url_for, render_template, request
 import random
-import csv
 from flask import Flask
-# from flask_bootstrap import Bootstrap
-# from flask_wtf import FlaskForm
-from email.mime.text import MIMEText
-# import wtforms.validators
+from work4gov.routes import work4gov
 
+app = Flask(
+    __name__,
+    template_folder='templates',   # PYWEB templates
+    static_folder='static'         # PYWEB static
+)
 
-app = Flask(__name__)
-app.secret_key='dev'
-# Bootstrap(app)
+app.register_blueprint(work4gov, url_prefix='/work4gov')
+
    
 @app.route('/')
 def index():
