@@ -11,9 +11,6 @@ from flask import Blueprint
 work4gov = Blueprint('work4gov',__name__, template_folder='templates', static_folder='static')
 
 
-
-
-
 headers = {
     "Host": my_secrets.host,
     "User-Agent": my_secrets.user_agent, 
@@ -34,7 +31,7 @@ def register():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        db = db.get_db()
+        conn = db.get_db()
         error = None
 
         if not email:
@@ -44,20 +41,20 @@ def register():
 
         if error is None:
             try:
-                db.execute(
+                conn.execute(
                     "INSERT INTO user (email, password, date_created) VALUES (?, ?, ?)",
                     (email, generate_password_hash(password), datetime.now()),
                 )
-                db.commit()
-                user = db.execute(
+                conn.commit()
+                user = conn.execute(
                     'SELECT * FROM user WHERE email = ?', (email,)
                 ).fetchone()
                 session.clear()
                 session['user_id'] = user['id']
-            except db.IntegrityError:
+            except conn.IntegrityError:
                 error = f"User {email} is already registered."
             else:
-                return redirect(url_for("search"))
+                return redirect(url_for('work4gov.search'))
 
         flash(error)
 
@@ -69,9 +66,9 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        db = db.get_db()
+        conn = db.get_db()
         error = None
-        user = db.execute(
+        user = conn.execute(
             'SELECT * FROM user WHERE email = ?', (email,)
         ).fetchone()
 
@@ -83,7 +80,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('search'))
+            return redirect(url_for('work4gov.search'))
 
         flash(error)
 
@@ -105,13 +102,13 @@ def load_logged_in_user():
 @work4gov.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('login'))
+    return redirect(url_for('work4gov.login'))
 
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            return redirect(url_for('login'))
+            return redirect(url_for('work4gov.login'))
 
         return view(**kwargs)
 
@@ -128,7 +125,7 @@ def search():
     if request.method == 'POST':
         keywords = request.form.get('keywords', '')
         location = request.form.get('location', '')
-        return redirect(url_for('search', keywords=keywords, location=location))
+        return redirect(url_for('work4gov.search', keywords=keywords, location=location))
 
     # GET method — full query param support
     keywords = request.args.get('keywords', '')
@@ -143,9 +140,9 @@ def search():
     if location:
         location = location.replace(" ", "")
 
-    db = db.get_db()
+    conn = db.get_db()
     # Fetch the current user data from the database
-    user_data = db.execute(
+    user_data = conn.execute(
         "SELECT position_title, minimum_salary, location, hiring_path, remote FROM user WHERE id=?",
         (g.user['id'],)
     ).fetchone()
@@ -300,7 +297,7 @@ def search():
 #             job_count = data.get('SearchResult', {}).get('SearchResultCount', 0)
 
 #         if question_index == MAX_QUESTION_INDEX:
-#             return redirect(url_for('search', custom_url=custom_url))
+#             return redirect(url_for('work4gov.search', custom_url=custom_url))
 #         else:
 #             return render_template('questionnaire.html', question_index=question_index + 1, job_count=job_count)
 #     else:
@@ -320,8 +317,8 @@ def account():
         remote = request.form.get('remote')
 
         # Fetch the current user data from the database
-        db = db.get_db()
-        user_data = db.execute(
+        conn = db.get_db()
+        user_data = conn.execute(
             "SELECT position_title, minimum_salary, location, hiring_path, remote FROM user WHERE id=?",
             (g.user['id'],)
         ).fetchone()
@@ -354,30 +351,30 @@ def account():
         if update_fields:
             update_query = f"UPDATE user SET {', '.join(update_fields)} WHERE id=?"
             update_values.append(g.user['id'])  # Add the user ID to the values
-            db.execute(update_query, update_values)
-            db.commit()
+            conn.execute(update_query, update_values)
+            conn.commit()
             flash("Account updated successfully.", 'success')
         else:
             flash("No changes were made.", 'info')
 
-        return redirect(url_for('account'))
+        return redirect(url_for('work4gov.account'))
     else:
 
         reset = request.args.get('reset', '')
         if reset == 'true':
             # Reset the user data to default values
-            db = db.get_db()
-            db.execute(
+            conn = conn.get_db()
+            conn.execute(
                 "UPDATE user SET position_title=?, minimum_salary=?, location=?, hiring_path=?, remote=? WHERE id=?",
                 (None, None, None, None, None, g.user['id'])
             )
-            db.commit()
+            conn.commit()
             flash("Account reset successfully.", 'success')
-            return redirect(url_for('account'))
+            return redirect(url_for('work4gov.account'))
         else:
             # Fetch the current user data for the GET request
-            db = db.get_db()
-            user_data = db.execute(
+            conn = conn.get_db()
+            user_data = conn.execute(
                 "SELECT position_title, minimum_salary, location, hiring_path, remote FROM user WHERE id=?",
                 (g.user['id'],)
             ).fetchone()
@@ -386,5 +383,5 @@ def account():
                 return render_template('account.html', user_data=user_data, position_titles=my_secrets.position_titles)
             else:
                 flash("User not found.", 'error')
-                return redirect(url_for('login'))
+                return redirect(url_for('work4gov.login'))
  
