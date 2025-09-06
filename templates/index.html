@@ -39,40 +39,117 @@
   <section id="timeline" class="timeline">
     <h2 style="text-align:center; margin-bottom:40px;">Timeline</h2>
     <div class="timeline-entry right">
-      <span>2025</span>
-      <h3>Grundy County - IT Helpdesk</h3>
-      <p>Provided technical support and troubleshooting for IT issues.</p>
-      <img src="{{ url_for('static', filename='img/grundy_county.png') }}" alt="Grundy County Logo">
+      <div class="timeline-card">
+        <div class="timeline-card-front">
+          <span>2025</span>
+          <h3>Grundy County - IT Helpdesk</h3>
+          <p>Provided technical support and troubleshooting for IT issues.</p>
+          <img src="{{ url_for('static', filename='img/grundy_county.png') }}" alt="Grundy County Logo">
+        </div>
+        <div class="timeline-card-back">
+          <p><strong>Skills Earned</strong></p>
+          <ul>
+            <li>Active Directory</li>
+            <li>ManageEngine Service Now Ticketing Software</li>
+            <li>End User Support via Phone, Email, and Remote Desktop</li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="timeline-entry left">
-      <span>2025</span>
-      <h3>Bachelor of Science in Computer Science - Lewis University</h3>
-      <p>Graduated May 2025</p>
-      <img src="{{ url_for('static', filename='img/lewis.jpg') }}" alt="Lewis University Logo">
+      <div class="timeline-card">
+        <div class="timeline-card-front">
+          <span>2025</span>
+          <h3>Bachelor of Science in Computer Science - Lewis University</h3>
+          <p>Graduated May 2025</p>
+          <img src="{{ url_for('static', filename='img/lewis.jpg') }}" alt="Lewis University Logo">
+        </div>
+        <div class="timeline-card-back">
+          <p><strong>Skills Earned</strong></p>
+          <ul>
+            <li>Statistical Math</li>
+            <li>Cybersecurity Fundamentals</li>
+            <li>Algorithms</li>
+            <li>Software Development</li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="timeline-entry right">
-      <span>2024</span>
-      <h3>Lead Developer - Hiver App</h3>
-      <p>Designed and built a Flutter mobile app for social events.</p>
-      <img src="{{ url_for('static', filename='img/hiver.png') }}" alt="Hiver App Logo">
+      <div class="timeline-card">
+        <div class="timeline-card-front">
+          <span>2024</span>
+          <h3>Lead Developer - Hiver App</h3>
+          <p>Designed and built a Flutter mobile app for social events.</p>
+          <img src="{{ url_for('static', filename='img/hiver.png') }}" alt="Hiver App Logo">
+        </div>
+        <div class="timeline-card-back">
+          <p><strong>Skills Earned</strong></p>
+          <ul>
+            <li>Flutter and Dart</li>
+            <li>Firebase</li>
+            <li>Agile Development</li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="timeline-entry left">
-      <span>2023</span>
-      <h3>Associates in Applied Science - Joliet Junior College</h3>
-      <p>Graduated December 2023</p>
-      <img src="{{ url_for('static', filename='img/jjc.jpg') }}" alt="Joliet Junior College Logo">
+      <div class="timeline-card">
+        <div class="timeline-card-front">
+          <span>2023</span>
+          <h3>Associates in Applied Science - Joliet Junior College</h3>
+          <p>Graduated December 2023</p>
+          <img src="{{ url_for('static', filename='img/jjc.jpg') }}" alt="Joliet Junior College Logo">
+        </div>
+        <div class="timeline-card-back">
+          <p><strong>Skills Earned</strong></p>
+          <ul>
+            <li>Python</li>
+            <li>HTML/CSS</li>
+            <li>Java</li>
+            <li>JavaScript</li>
+            <li>SQL</li>
+            <li>Java</li>
+            <li>C/C++</li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="timeline-entry right">
-      <span>2021</span>
-      <h3>Harvard's CS50 Online Course</h3>
-      <p>Completed Harvard's introductory computer science course online.</p>
-      <img src="{{ url_for('static', filename='img/cs50.jpg') }}" alt="CS50 Logo">
+      <div class="timeline-card">
+        <div class="timeline-card-front">
+          <span>2021</span>
+          <h3>Harvard's CS50 Online Course</h3>
+          <p>Completed Harvard's introductory computer science course online.</p>
+          <img src="{{ url_for('static', filename='img/cs50.jpg') }}" alt="CS50 Logo">
+        </div>
+        <div class="timeline-card-back">
+          <p><strong>Skills Earned</strong></p>
+          <ul>
+            <li>C/C++</li>
+            <li>Python</li>
+            <li>APIs</li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="timeline-entry left">
-      <span>2020</span>
-      <h3>Discovered Passion for Coding - Teamtreehouse.com</h3>
-      <p>Completed online courses in web development and programming.</p>
-      <img src="{{ url_for('static', filename='img/teamtreehouse.jpg') }}" alt="Team Treehouse Logo">
+      <div class="timeline-card">
+        <div class="timeline-card-front">
+          <span>2020</span>
+          <h3>Discovered Passion for Coding - Teamtreehouse.com</h3>
+          <p>Completed online courses in web development and programming.</p>
+          <img src="{{ url_for('static', filename='img/teamtreehouse.jpg') }}" alt="Team Treehouse Logo">
+        </div>
+        <div class="timeline-card-back">
+          <p><strong>Skills Earned</strong></p>
+          <ul>
+            <li>HTML/CSS</li>
+            <li>JavaScript</li>
+            <li>Python</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -167,6 +244,15 @@
     window.addEventListener('scroll', showTimelineEntries);
     window.addEventListener('load', showTimelineEntries);
   </script>
+
+  <!-- Timeline Card Flip Script -->
+<script>
+  document.querySelectorAll('.timeline-card').forEach(card => {
+    card.addEventListener('click', function(e) {
+      this.classList.toggle('flipped');
+    });
+  });
+</script>
 
 </body>
 </html>
