@@ -9,7 +9,7 @@ app = Flask(
     static_folder='static'         # PYWEB static
 )
 app.config.from_mapping(
-        SECRET_KEY='dev',
+        SECRET_KEY='f2d7eee4e5a4cf3d3c8d9bff0d884ba0d801264267ba66e7828954a3d55e0d04',
         DATABASE=os.path.join(app.instance_path, 'work4gov.sqlite'),
     )
 
