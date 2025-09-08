@@ -107,15 +107,20 @@ def reset_guess():
 
 @app.route('/phrase')
 def phrase():
-    # get session variables
 
-    # guesses 
+    # Initialize session variables if missing
+    if 'guesses' not in session:
+        session['guesses'] = []
+    if 'phrase' not in session:
+        session['phrase'] = ''
+    if 'mistakes' not in session:
+        session['mistakes'] = 0
+    if 'output' not in session:
+        session['output'] = []
+
     guesses = session['guesses']
-    # phrase
     phrase = session['phrase']
-    # mistakes
     mistakes = session['mistakes']
-    # output
     output = session['output']
 
     # get guess
