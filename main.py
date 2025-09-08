@@ -112,10 +112,10 @@ def phrase():
     if not all(k in session for k in required_keys):
         return redirect(url_for('get_sessions', app='phrase'))
 
-    guesses = session['guesses']
-    phrase = session['phrase']
-    mistakes = session['mistakes']
-    output = session['output']
+    guesses = session.get('guesses', [])
+    phrase = session.get('phrase', '')
+    mistakes = session.get('mistakes', 0)
+    output = session.get('output', [])
 
     # get guess
     guess = request.args.get('guess' ,'').lower()
