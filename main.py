@@ -108,15 +108,11 @@ def reset_guess():
 @app.route('/phrase')
 def phrase():
 
-    # Initialize session variables if missing
-    if 'guesses' not in session:
-        session['guesses'] = []
-    if 'phrase' not in session:
-        session['phrase'] = ''
-    if 'mistakes' not in session:
-        session['mistakes'] = 0
-    if 'output' not in session:
-        session['output'] = []
+
+    # If any required session variable is missing, redirect to get_sessions/phrase to initialize
+    required_keys = ['guesses', 'phrase', 'mistakes', 'output']
+    if not all(k in session for k in required_keys):
+        return redirect(url_for('get_sessions', app='phrase'))
 
     guesses = session['guesses']
     phrase = session['phrase']
