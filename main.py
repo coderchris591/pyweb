@@ -1,9 +1,7 @@
 import os
 from flask import Flask, make_response, redirect, session, url_for, render_template, request
 import random
-from flask import Flask
 from work4gov.routes import work4gov, db
-import os
 
 app = Flask(
     __name__,
