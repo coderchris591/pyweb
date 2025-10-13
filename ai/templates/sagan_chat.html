@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Carl Sagan AI Chat</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background-color: #0b0c10;
+      color: #c5c6c7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      margin: 0;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 600px;
+      background: #1f2833;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: calc(100vh - 20px);
+      min-height: 500px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 15px;
+      background-color: #45a29e;
+      color: #0b0c10;
+      flex-shrink: 0;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .sagan-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 10px auto;
+      display: block;
+      border: 2px solid #45a29e;
+      flex-shrink: 0;
+    }
+
+    .chat-box {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    .message {
+      padding: 12px 16px;
+      border-radius: 18px;
+      max-width: 85%;
+      line-height: 1.4em;
+      word-wrap: break-word;
+      font-size: 16px;
+    }
+
+    .user {
+      background: #66fcf1;
+      color: #0b0c10;
+      align-self: flex-end;
+    }
+
+    .sagan {
+      background: #45a29e;
+      color: #0b0c10;
+      align-self: flex-start;
+    }
+
+    .input-area {
+      display: flex;
+      border-top: 1px solid #45a29e;
+      padding: 10px;
+      gap: 10px;
+      flex-shrink: 0;
+      background: #1f2833;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 14px 16px;
+      border: 2px solid #45a29e;
+      border-radius: 20px;
+      outline: none;
+      background: #0b0c10;
+      color: #c5c6c7;
+      font-size: 16px;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .input-area input:focus {
+      border-color: #66fcf1;
+    }
+
+    .input-area button {
+      padding: 14px 20px;
+      background: #45a29e;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #0b0c10;
+      transition: all 0.2s;
+      font-size: 16px;
+      min-width: 70px;
+      touch-action: manipulation;
+    }
+
+    .input-area button:hover,
+    .input-area button:active {
+      background: #66fcf1;
+      transform: scale(0.98);
+    }
+
+    /* Mobile-specific styles */
+    @media (max-width: 768px) {
+      body {
+        padding: 5px;
+      }
+      
+      .chat-container {
+        border-radius: 8px;
+        height: calc(100vh - 10px);
+      }
+      
+      .header {
+        padding: 12px;
+      }
+      
+      .header h2 {
+        font-size: 1.3rem;
+      }
+      
+      .sagan-image {
+        width: 60px;
+        height: 60px;
+        margin: 8px auto;
+      }
+      
+      .chat-box {
+        padding: 12px;
+      }
+      
+      .message {
+        max-width: 90%;
+        padding: 10px 14px;
+        font-size: 15px;
+      }
+      
+      .input-area {
+        padding: 8px;
+        gap: 8px;
+      }
+      
+      .input-area input {
+        padding: 12px 14px;
+        font-size: 16px;
+      }
+      
+      .input-area button {
+        padding: 12px 16px;
+        min-width: 60px;
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h2 {
+        font-size: 1.2rem;
+      }
+      
+      .sagan-image {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .message {
+        max-width: 95%;
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="header">
+      <h2>Carl Sagan AI Chat</h2>
+    </div>
+
+    <img src="{{ url_for('ai.static', filename='img/carl_sagan.webp') }}" alt="Carl Sagan" class="sagan-image" />
+
+    <div class="chat-box" id="chat-box">
+      <div class="message sagan">Hello, I'm Carl Sagan. Ask me anything about the cosmos.</div>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="Ask Carl Sagan..." />
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const sendBtn = document.getElementById("send-btn");
+    const input = document.getElementById("user-input");
+    const chatBox = document.getElementById("chat-box");
+
+    async function sendMessage() {
+      const query = input.value.trim();
+      if (!query) return;
+
+      // Disable input and button during request
+      input.disabled = true;
+      sendBtn.disabled = true;
+      sendBtn.textContent = "...";
+
+      const userMsg = document.createElement("div");
+      userMsg.classList.add("message", "user");
+      userMsg.textContent = query;
+      chatBox.appendChild(userMsg);
+      input.value = "";
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const response = await fetch("/ai/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query })
+        });
+
+        const data = await response.json();
+
+        const saganMsg = document.createElement("div");
+        saganMsg.classList.add("message", "sagan");
+        saganMsg.textContent = data.response || "No response received.";
+        chatBox.appendChild(saganMsg);
+
+      } catch (error) {
+        const errMsg = document.createElement("div");
+        errMsg.classList.add("message", "sagan");
+        errMsg.textContent = "Error connecting to server.";
+        chatBox.appendChild(errMsg);
+      } finally {
+        // Re-enable input and button
+        input.disabled = false;
+        sendBtn.disabled = false;
+        sendBtn.textContent = "Send";
+        input.focus();
+      }
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    sendBtn.addEventListener("click", sendMessage);
+    sendBtn.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+      sendMessage();
+    });
+    
+    input.addEventListener("keypress", e => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Auto-focus input on page load for better mobile UX
+    window.addEventListener("load", () => {
+      setTimeout(() => input.focus(), 100);
+    });
+  </script>
+</body>
+</html>

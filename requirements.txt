@@ -1,2 +1,8 @@
 Flask==3.0.0
 requests
+# OpenAI API client
+openai>=1.0.0
+# Vector similarity search and indexing
+faiss-cpu>=1.7.0
+# Numerical computing
+numpy>=1.21.0

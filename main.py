@@ -1,7 +1,8 @@
 import os
-from flask import Flask, make_response, redirect, session, url_for, render_template, request
+from flask import Flask, jsonify, make_response, redirect, session, url_for, render_template, request
 import random
 from work4gov.routes import work4gov, db
+from ai.routes import ai
 
 app = Flask(
     __name__,
@@ -20,7 +21,10 @@ except OSError:
     pass
 
 app.register_blueprint(work4gov, url_prefix='/work4gov')
+app.register_blueprint(ai, url_prefix='/ai')
+
 db.init_app(app)
+
 
 
    
@@ -29,8 +33,6 @@ def index():
     return render_template('index.html')
 
 
-
-    
 @app.route('/get_sessions/<app>')
 def get_sessions(app):
     if app == 'guess':
@@ -214,6 +216,10 @@ def credit_card_validator():
         return render_template('credit.html', card_type=card_type)
     else:
         return render_template('credit.html', card_type='Invalid')
+    
+
+
+
 
 
 
