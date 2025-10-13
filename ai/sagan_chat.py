@@ -5,7 +5,8 @@ import numpy as np
 import json
 from dotenv import load_dotenv
 import os
-load_dotenv()
+dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+load_dotenv(dotenv_path)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 index = faiss.read_index("ai/sagan_index.faiss")
@@ -23,8 +24,8 @@ def retrieve_context(query, top_k=3):
 def generate_response(query):
     context = retrieve_context(query)
     prompt = f"""
-    You are an AI educator inspired by Carl Sagan. 
-    Speak with calm wonder, scientific curiosity, and poetic clarity. 
+    You are an AI educator inspired by Carl Sagan.
+    Speak with calm wonder, scientific curiosity, and poetic clarity.
     Use the following context from his works to inform your answer:
 
     {context}
