@@ -73,6 +73,7 @@ target/
 *.sql
 *.sqlite
 *.db
+*.faiss
 
 # ------------------------
 # Miscellaneous
@@ -88,3 +89,5 @@ target/
 .env
 .env.local
 .env.*.local
+
+
