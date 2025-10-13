@@ -73,7 +73,15 @@ target/
 *.sql
 *.sqlite
 *.db
+
+# ------------------------
+# AI/ML Files
+# ------------------------
 *.faiss
+*.pkl
+*.model
+ai/sagan_index.faiss
+ai/sagan_chunks.json
 
 # ------------------------
 # Miscellaneous
@@ -89,6 +97,3 @@ target/
 .env
 .env.local
 .env.*.local
-
-
-ai/sagain_index/faiss
