@@ -91,3 +91,4 @@ target/
 .env.*.local
 
 
+ai/sagain_index/faiss
