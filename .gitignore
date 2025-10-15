@@ -30,6 +30,7 @@ pnpm-debug.log*
 __pycache__/
 *.py[cod]
 *.pyo
+*.pyc
 *.pyd
 *.env
 *.venv
