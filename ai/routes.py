@@ -6,19 +6,20 @@ import requests
 
 ai = Blueprint('ai',__name__, template_folder='templates', static_folder='static')
 
-INDEX_PATH = os.path.join(os.path.dirname(__file__), "sagan_index.faiss")
-GDRIVE_FILE_ID = "1n-Emm343C5NlkutYPfmsXymIdJZtpTP9"
+# INDEX_PATH = os.path.join(os.path.dirname(__file__), "sagan_index.faiss")
+# GDRIVE_FILE_ID = "1n-Emm343C5NlkutYPfmsXymIdJZtpTP9"
 
-def download_faiss_index():
-    if not os.path.exists(INDEX_PATH):
-        print("Downloading FAISS index...")
-        url = f"https://drive.google.com/uc?export=download&id={GDRIVE_FILE_ID}"
-        r = requests.get(url)
-        with open(INDEX_PATH, 'wb') as f:
-            f.write(r.content)
-        print("Download complete.")
+# def download_faiss_index():
+#     if not os.path.exists(INDEX_PATH):
+#         print("Downloading FAISS index...")
+#         url = f"https://drive.google.com/uc?export=download&id={GDRIVE_FILE_ID}"
+#         r = requests.get(url)
+#         with open(INDEX_PATH, 'wb') as f:
+#             f.write(r.content)
+#         print("Download complete.")
 
-download_faiss_index()
+# download_faiss_index()
+
 
 
 @ai.route('/chat')

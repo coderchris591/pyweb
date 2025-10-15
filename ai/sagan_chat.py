@@ -5,12 +5,25 @@ import numpy as np
 import json
 from dotenv import load_dotenv
 import os
+import requests
+import gdown
+
+# Load environment variables
 dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
 load_dotenv(dotenv_path)
+
+# Initialize OpenAI client
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+# Download FAISS index if not present
+if not os.path.exists("ai/sagan_index.faiss"):
+    print("Downloading FAISS index...")
+    file_id = "1n-Emm343C5NlkutYPfmsXymIdJZtpTP9"
+    gdown.download(f"https://drive.google.com/uc?id={file_id}", "ai/sagan_index.faiss", quiet=False)
 
 index = faiss.read_index("ai/sagan_index.faiss")
 sagan_chunks = json.load(open("ai/sagan_chunks.json", "r", encoding="utf-8"))
+
 
 def retrieve_context(query, top_k=3):
     query_emb = client.embeddings.create(
