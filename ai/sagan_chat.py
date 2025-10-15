@@ -15,6 +15,20 @@ load_dotenv(dotenv_path)
 # Initialize OpenAI client
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+
+# Get the folder where this file lives in pyweb
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # go up from ai/
+AI_DIR = os.path.join(BASE_DIR, "ai")
+os.makedirs(AI_DIR, exist_ok=True)
+
+file_id = "1n-Emm343C5NlkutYPfmsXymIdJZtpTP9"
+destination = os.path.join(AI_DIR, "sagan_index.faiss")
+
+if not os.path.exists(destination):
+    print("Downloading FAISS index...")
+    gdown.download(f"https://drive.google.com/uc?id={file_id}", destination, quiet=False)
+
+
 # Download FAISS index if not present
 if not os.path.exists("ai/sagan_index.faiss"):
     print("Downloading FAISS index...")
