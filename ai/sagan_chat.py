@@ -16,27 +16,26 @@ load_dotenv(dotenv_path)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
-# Get the folder where this file lives in pyweb
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # go up from ai/
+# --- 1. Get project root folder ---
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # pyweb/
 AI_DIR = os.path.join(BASE_DIR, "ai")
-os.makedirs(AI_DIR, exist_ok=True)
+os.makedirs(AI_DIR, exist_ok=True)  # ensures folder exists
 
-file_id = "1n-Emm343C5NlkutYPfmsXymIdJZtpTP9"
-destination = os.path.join(AI_DIR, "sagan_index.faiss")
+# --- 2. FAISS index path ---
+FAISS_PATH = os.path.join(AI_DIR, "sagan_index.faiss")
+FAISS_FILE_ID = "1n-Emm343C5NlkutYPfmsXymIdJZtpTP9"
 
-if not os.path.exists(destination):
+# --- 3. Download if missing ---
+if not os.path.exists(FAISS_PATH):
     print("Downloading FAISS index...")
-    gdown.download(f"https://drive.google.com/uc?id={file_id}", destination, quiet=False)
+    gdown.download(
+        f"https://drive.google.com/uc?export=download&id={FAISS_FILE_ID}",
+        FAISS_PATH,
+        quiet=False
+    )
 
-
-# Download FAISS index if not present
-if not os.path.exists("ai/sagan_index.faiss"):
-    print("Downloading FAISS index...")
-    file_id = "1n-Emm343C5NlkutYPfmsXymIdJZtpTP9"
-    gdown.download(f"https://drive.google.com/uc?id={file_id}", "ai/sagan_index.faiss", quiet=False)
-
-index = faiss.read_index("ai/sagan_index.faiss")
-sagan_chunks = json.load(open("ai/sagan_chunks.json", "r", encoding="utf-8"))
+index = faiss.read_index(FAISS_PATH)
+sagan_chunks = json.load(open(os.path.join(AI_DIR, "sagan_chunks.json"), "r", encoding="utf-8"))
 
 
 def retrieve_context(query, top_k=3):
